@@ -3,6 +3,8 @@ class Character {
     this.classAttribute = classAttribute;
     this.PV = PV;
     this.PM = PM;
+    this.position = -1;
+    this.positionToClick = [];
   }
 
   spotPlayer() {
@@ -15,12 +17,12 @@ class Character {
       } else {
         littleBox.addClass("casePlayer");
         littleBox.addClass(this.classAttribute);
+        this.position = random
       }
     }
   }
 
   notAround() {
-    for (let i = 0; i < 1; i++) {
       // mettre que ça sera la classe du joueur 1 et 2 cliqué après évènement html
       let players = $('.casePlayer')
       let idPlayer1 = $('.Diluc').attr('id') // l'id des joueurs 
@@ -35,13 +37,54 @@ class Character {
           players.removeClass(this.classAttribute)
           this.spotPlayer()
         }
-    }
+  }
+
+  setPlayerPosition(positionCase){
+    let newPosition = $("#" + positionCase);
+    newPosition.addClass("casePlayer");
+    newPosition.addClass(this.classAttribute);
+
+    let oldPosition = $("#" + this.position);
+    oldPosition.removeClass("casePlayer");
+    oldPosition.removeClass(this.classAttribute);
+
+    this.position = positionCase
   }
 
   movePlayer() {
-    let players = $('.casePlayer')
-    for (let m = 0; m < this.PM; m++) {
-      
+    this.showCasesToMoove(this.positionToClick)
+    let that = this
+    $(".caseVide").on("click", function(e){
+      let valueOfCaseClicked = $(this).attr("id")
+      console.log(that)
+      if (this.positionToClick.includes(valueOfCaseClicked) === true) {
+        console.log("Le joueur peut se déplacer sur cette case")
+        that.setPlayerPosition(valueOfCaseClicked)
+      }
+      else {
+        console.log("Le joueur ne peut pas se déplacer sur cette case.")
+      }
+    })
+  }
+
+  showCasesToMoove() {
+    let position = this.position
+    for (let i = 0; i < 4; i++) {
+      $("#" + position + i).addClass("cellToClick");
+      this.positionToClick.append(position + i)
+    }
+    for (let i = 0; i < 4; i++) {
+      $("#" + position - i).addClass("cellToClick");
+      this.positionToClick.append(position - i)
+    }
+    for (let i = 0; i < 40; i + 10) {
+      $("#" + position + i).addClass("cellToClick");
+      this.positionToClick.append(position + i)
+    }
+    for (let i = 0; i < 4; i + 10) {
+      $("#" + position - i).addClass("cellToClick");
+      this.positionToClick.append(position - i)
     }
   }
 }
+

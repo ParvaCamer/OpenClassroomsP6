@@ -1,3 +1,6 @@
+let myBoard = new board(10, 10, 10);
+myBoard.drawBoard();
+
 let Diluc = new Character("Diluc", 200, 3)
 let Childe = new Character("Childe", 180, 3)
 let Razor = new Character("Razor", 192, 3)
@@ -21,3 +24,23 @@ let weapon7 = new Weapon("La Flûte", "Flûte")
 
 weapon1.spotWeapons()
 weapon2.spotWeapons()
+
+let playersWhoPlay = [
+    Diluc,
+    Razor
+  ]
+  let isGameOver = false;
+  let playerNumberToPlay = 0;
+  let numberOfTurn = 0
+  
+  while (isGameOver === false) {
+    playersWhoPlay[playerNumberToPlay].movePlayer();
+    playerNumberToPlay += 1;
+    if (playerNumberToPlay === 2) {
+      playerNumberToPlay = 0
+      numberOfTurn += 1;
+    }
+    if (numberOfTurn === 5) {
+      isGameOver = true
+    }
+  }

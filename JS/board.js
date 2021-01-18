@@ -39,5 +39,4 @@ class board {
   }
 }
 
-let myBoard = new board(10, 10, 10);
-myBoard.drawBoard();
+
