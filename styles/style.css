@@ -1,0 +1,104 @@
+/***** ******/
+/*  Board   */
+/***** ******/
+.caseVide,
+.caseObstacle {
+  height: 50px;
+  width: 50px;
+  border: solid 2px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  float: left;
+}
+.caseObstacle {
+  background-image: url("https://i.pinimg.com/originals/63/9e/e3/639ee336abefc1a6a1f40b97db9b409f.jpg");
+}
+.caseVide {
+  background-image: url("https://i.pinimg.com/originals/4e/6c/39/4e6c395ecf5937912114f21606eac9ab.png");
+}
+/***** ******/
+/*  Player  */
+/***** ******/
+.Diluc {
+  background-image: url("https://i.pinimg.com/564x/14/3c/ee/143cee249f14ef13091ea368ed6019d6.jpg");
+  background-size: cover;
+  border: solid 2px;
+}
+.Childe {
+  background-image: url("https://i.pinimg.com/474x/95/87/ae/9587aeacbe67dac6e10639677b4b635a.jpg");
+  background-size: cover;
+  border: solid 2px;
+}
+.Razor {
+  background-image: url("https://i.pinimg.com/564x/02/95/9b/02959b21ed97c5291e9926e3e89a5507.jpg");
+  background-size: cover;
+  border: solid 2px;
+}
+.Jean {
+  /* background-image: url(""); */
+  background-size: cover;
+  border: solid 2px;
+}
+.Chongyun {
+  /* background-image: url(""); */
+  background-size: cover;
+  border: solid 2px;
+}
+.Xiangling {
+  /* background-image: url(""); */
+  background-size: cover;
+  border: solid 2px;
+}
+.Parva {
+  /* background-image: url(""); */
+  background-size: cover;
+  border: solid 2px;
+}
+/***** ******/
+/*  Weapons */
+/***** ******/
+.ÉpéeDeNoob {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB2zBPsUQYOlaIIhsDlZuSA325N9LfNUHD_g&usqp=CAU");
+  background-size: cover;
+  border: solid 2px;
+}
+.Ombre {
+  background-image: url("https://uploadstatic.mihoyo.com/ys-obc/2020/07/17/75795471/de66a13513908e11123998c9783c6ff7_2333625586375398616.png");
+  background-size: cover;
+  border: solid 2px;
+}
+.Faucon {
+  background-image: url("https://uploadstatic.mihoyo.com/ys-obc/2020/07/17/75795471/935c2d06ae29f29e51b902d131782b18_2130159045735761471.png");
+  background-size: cover;
+  border: solid 2px;
+}
+.JadeAilée {
+  background-image: url("https://uploadstatic.mihoyo.com/ys-obc/2020/07/17/75795471/cda9841711c3d126c81a531a02e94953_3658752798229410879.png");
+  background-size: cover;
+  border: solid 2px;
+}
+.Dragon {
+  background-image: url("https://uploadstatic.mihoyo.com/ys-obc/2020/07/17/75795471/b753959a45fc9989e39dd945e8769e4a_7246305538033198382.png");
+  background-size: cover;
+  border: solid 2px;
+}
+.VoûteAzur {
+  background-image: url("https://uploadstatic.mihoyo.com/ys-obc/2020/09/17/75833613/fe7b0e7f80a4e1c9876d27b89cbc93ec_7612540813795607024.png");
+  background-size: cover;
+  border: solid 2px;
+}
+.MortDuLoup {
+  background-image: url("https://uploadstatic.mihoyo.com/ys-obc/2020/07/17/75795471/22b30db150bfea372b73678157955047_2297579049732759021.png");
+  background-size: cover;
+  border: solid 2px;
+}
+.Flûte {
+  background-image: url("https://uploadstatic.mihoyo.com/ys-obc/2020/07/17/75795471/cf572b27ab0c4934984f05af1307888e_8924902473808502556.png");
+  background-size: cover;
+  border: solid 2px;
+}
