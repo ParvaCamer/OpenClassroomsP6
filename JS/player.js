@@ -1,8 +1,7 @@
 class Character {
-  constructor(classAttribute, PV, PM) {
+  constructor(classAttribute, PV) {
     this.classAttribute = classAttribute;
     this.PV = PV;
-    this.PM = PM;
     this.position = -1;
     this.positionToClick = [];
   }
@@ -81,19 +80,19 @@ class Character {
 
   showCasesToMoove() {
     let position = this.position;
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i <= 3; i++) { // pour aller à droite
       $("#" + position + i).addClass("cellToClick");
       this.positionToClick.push(position + i);
     }
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i <= 3; i++) { // pour aller à gauche
       $("#" + position - i).addClass("cellToClick");
       this.positionToClick.push(position - i);
     }
-    for (let i = 0; i < 40; i += 10) {
+    for (let i = 0; i <= 30; i += 10) { // pour aller en bas
       $("#" + position + i).addClass("cellToClick");
       this.positionToClick.push(position + i);
     }
-    for (let i = 0; i < 4; i += 10) {
+    for (let i = 0; i <= 30; i += 10) { // pour aller en haut
       $("#" + position - i).addClass("cellToClick");
       this.positionToClick.push(position - i);
     }

@@ -1,13 +1,13 @@
 let myBoard = new board(10, 10, 10);
 myBoard.drawBoard();
 
-let Diluc = new Character("Diluc", 200, 3)
-let Childe = new Character("Childe", 180, 3)
-let Razor = new Character("Razor", 192, 3)
-let Jean = new Character("Jean", 170, 3)
-let Chongyun = new Character("Chongyun", 166, 3)
-let Xiangling = new Character("Xiangling", 176, 3)
-let Parva = new Character("Parva", 160, 3)
+let Diluc = new Character("Diluc", 200)
+let Childe = new Character("Childe", 180)
+let Razor = new Character("Razor", 192)
+let Jean = new Character("Jean", 170)
+let Chongyun = new Character("Chongyun", 166)
+let Xiangling = new Character("Xiangling", 176)
+let Parva = new Character("Parva", 160)
 
 Diluc.spotPlayer()
 Razor.spotPlayer()
