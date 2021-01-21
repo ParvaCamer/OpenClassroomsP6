@@ -22,7 +22,7 @@ table {
   background-image: url("https://i.pinimg.com/originals/4e/6c/39/4e6c395ecf5937912114f21606eac9ab.png");
 }
 .cellToClick {
-  background-color: yellowgreen;
+  background-color: red !important;
 }
 /***** ******/
 /*  Player  */

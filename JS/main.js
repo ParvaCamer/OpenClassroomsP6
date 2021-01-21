@@ -29,18 +29,41 @@ let playersWhoPlay = [
     Diluc,
     Razor
   ]
-  let isGameOver = false;
-  let playerNumberToPlay = 0;
-  let numberOfTurn = 0
   
-  while (isGameOver === false) {
-    playersWhoPlay[playerNumberToPlay].movePlayer();
-    playerNumberToPlay += 1;
-    if (playerNumberToPlay === 2) {
-      playerNumberToPlay = 0
-      numberOfTurn += 1;
-    }
-    if (numberOfTurn === 5) {
-      isGameOver = true
-    }
+let playerNumberToPlay = {
+  value: 0,
+  letMeKnow() {
+	if (this.setting === 2) {
+      this.setting = 0
+	  numberOfTurn.setting++;
+    }else{
+		playersWhoPlay[this.setting].movePlayer();
+	}
+  },
+  get setting() {
+    return this.value;
+  },
+  set setting(value) {
+    this.value = value;
+    this.letMeKnow();
   }
+}
+
+let numberOfTurn = {
+  value: 0,
+  letMeKnow() {
+	if (this.setting === 999) {
+		console.log("FIN DE LA PARTIE")
+		playersWhoPlay = []
+    }
+  },
+  get setting() {
+    return this.value;
+  },
+  set setting(value) {
+    this.value = value;
+    this.letMeKnow();
+  }
+}
+
+playersWhoPlay[0].movePlayer();
