@@ -21,8 +21,9 @@ table {
 .caseVide {
   background-image: url("https://i.pinimg.com/originals/4e/6c/39/4e6c395ecf5937912114f21606eac9ab.png");
 }
-.cellToClick {
-  background-color: red !important;
+.weaponBox {
+  background-image: none;
+  background-color: rgb(104, 50, 205);
 }
 /***** ******/
 /*  Player  */

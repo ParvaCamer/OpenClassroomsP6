@@ -22,14 +22,38 @@ let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur")
 let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup")
 let weapon7 = new Weapon("La Flûte", "Flûte")
 
-weapon1.spotWeapons()
-weapon2.spotWeapons()
+let allWeapons = [
+    weapon1.classAttribute,
+    weapon2.classAttribute,
+    weapon3.classAttribute,
+    weapon4.classAttribute,
+    weapon5.classAttribute,
+    weapon6.classAttribute,
+    weapon7.classAttribute  
+]
+let weaponOnBoard = []
+function randomWeapon() {
+    for (let i = 0; i < 3; i++) {
+      let random = Math.floor(Math.random() * allWeapons.length);
+      let aWeapon = allWeapons[random];
+      allWeapons.splice(random, 1)
+      weaponOnBoard.push(aWeapon)
+      console.log(aWeapon) 
+      console.log(allWeapons)
+      console.log(weaponOnBoard)
+    } 
+}
+randomWeapon()
+Diluc.addWeapon(weapon0)
+weaponOnBoard[0].spotWeapons()
+// weapon1.spotWeapons()
+// weapon2.spotWeapons()
 
 let playersWhoPlay = [
     Diluc,
     Razor
   ]
-  
+ 
 let playerNumberToPlay = {
   value: 0,
   letMeKnow() {
@@ -52,7 +76,7 @@ let playerNumberToPlay = {
 let numberOfTurn = {
   value: 0,
   letMeKnow() {
-	if (this.setting === 999) {
+	if (this.setting === 99) {
 		console.log("FIN DE LA PARTIE")
 		playersWhoPlay = []
     }

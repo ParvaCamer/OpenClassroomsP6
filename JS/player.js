@@ -4,6 +4,9 @@ class Character {
     this.PV = PV;
     this.position = -1;
     this.positionToClick = [];
+    this.newCaseWeapon = -1;
+    // this.weaponOnBoard = [randWeap1, randWeap2]
+    this.takeWeapon()
   }
 
   spotPlayer() {
@@ -24,10 +27,8 @@ class Character {
   notAround() {
     // mettre que ça sera la classe du joueur 1 et 2 cliqué après évènement html
     let players = $(".casePlayer");
-    let idPlayer1 = $(".Diluc").attr("id"); // l'id des joueurs
-    let idPlayer2 = $(".Razor").attr("id");
-    let stringPlayer1 = parseInt(idPlayer1); // convertit l'id en entier
-    let stringPlayer2 = parseInt(idPlayer2);
+    let stringPlayer1 = parseInt($(".Diluc").attr("id")); // convertit l'id en entier
+    let stringPlayer2 = parseInt($(".Razor").attr("id"));
 
     let left = stringPlayer1 - 1, right = stringPlayer1 + 1, top = stringPlayer1 - 10, bot = stringPlayer1 + 10;
 
@@ -97,4 +98,31 @@ class Character {
       this.positionToClick.push(position - i);
     }
   }
+
+  addWeapon(weapon) {
+    this.weapon = weapon
+    this.weapon.addOwner(this) //ajout de l'arme au personnage désigné
+    console.log("Arme ajoutée " + weapon.name + " à " + this.classAttribute)
+  }
+
+  switchWeapon(caseWeapon) {
+    let newWeapon = $('#' + caseWeapon);
+    newWeapon.addClass(this.weapon.classAttribute);
+
+    let oldWeapon = $('#' + newCaseWeapon);
+    oldWeapon.removeClass(this.weapon.classAttribute);
+
+    this.newCaseWeapon = caseWeapon;
+    this.addWeapon(newWeapon)
+  }
+
+  takeWeapon() {
+    let player = $('.casePlayer'),
+        aWeapon = $('.weaponBox'),
+        idPlayer = parseInt($(player).attr("id")),
+        idWeapon = parseInt($(aWeapon).attr("id"));
+    if (idPlayer == idWeapon) {
+      
+    }
+  }      
 }

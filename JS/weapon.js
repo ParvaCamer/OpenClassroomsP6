@@ -17,4 +17,9 @@ class Weapon {
             }
         }
     }
+
+    // ajoute les caractéristiques du personnage désigné
+    addOwner(character) {
+        this.character = character
+    }
 }
