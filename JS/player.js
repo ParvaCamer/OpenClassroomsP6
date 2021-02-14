@@ -4,9 +4,6 @@ class Character {
     this.PV = PV;
     this.position = -1;
     this.positionToClick = [];
-    this.newCaseWeapon = -1;
-    // this.weaponOnBoard = [randWeap1, randWeap2]
-    this.takeWeapon()
   }
 
   spotPlayer() {
@@ -73,7 +70,6 @@ class Character {
         console.log("Le joueur ne peut pas se déplacer sur cette case.");
       }
     };
-
     Array.from(elements).forEach(function (element) {
       element.addEventListener("click", myHandler);
     });
@@ -102,27 +98,27 @@ class Character {
   addWeapon(weapon) {
     this.weapon = weapon
     this.weapon.addOwner(this) //ajout de l'arme au personnage désigné
+
     console.log("Arme ajoutée " + weapon.name + " à " + this.classAttribute)
   }
 
   switchWeapon(caseWeapon) {
-    let newWeapon = $('#' + caseWeapon);
-    newWeapon.addClass(this.weapon.classAttribute);
+    let oldWeapon = $('#' + caseWeapon);
+    oldWeapon.addClass(this.weapon.classAttribute);
 
-    let oldWeapon = $('#' + newCaseWeapon);
-    oldWeapon.removeClass(this.weapon.classAttribute);
+    let newWeapon = $('#' + newCaseWeapon);
+    newWeapon.removeClass(this.weapon.classAttribute);
 
-    this.newCaseWeapon = caseWeapon;
     this.addWeapon(newWeapon)
   }
 
   takeWeapon() {
-    let player = $('.casePlayer'),
-        aWeapon = $('.weaponBox'),
-        idPlayer = parseInt($(player).attr("id")),
-        idWeapon = parseInt($(aWeapon).attr("id"));
-    if (idPlayer == idWeapon) {
-      
+    let player = $("." + this.classAttribute);
+    let hasWeapon = $('#' + this.position).hasClass('weaponBox');
+
+    if (hasWeapon) {
+      console.log("une arme se situe sur cette case")
+      this.switchWeapon(player)
     }
   }      
 }

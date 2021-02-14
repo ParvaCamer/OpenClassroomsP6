@@ -23,31 +23,30 @@ let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup")
 let weapon7 = new Weapon("La Flûte", "Flûte")
 
 let allWeapons = [
-    weapon1.classAttribute,
-    weapon2.classAttribute,
-    weapon3.classAttribute,
-    weapon4.classAttribute,
-    weapon5.classAttribute,
-    weapon6.classAttribute,
-    weapon7.classAttribute  
+    weapon1,
+    weapon2,
+    weapon3,
+    weapon4,
+    weapon5,
+    weapon6,
+    weapon7  
 ]
 let weaponOnBoard = []
+
 function randomWeapon() {
     for (let i = 0; i < 3; i++) {
       let random = Math.floor(Math.random() * allWeapons.length);
       let aWeapon = allWeapons[random];
-      allWeapons.splice(random, 1)
-      weaponOnBoard.push(aWeapon)
-      console.log(aWeapon) 
-      console.log(allWeapons)
-      console.log(weaponOnBoard)
-    } 
+      allWeapons.splice(random, 1);
+      weaponOnBoard.push(aWeapon);
+    } weaponOnBoard.forEach(function(oneWeapon) {
+      return oneWeapon.spotWeapons()
+    })
 }
+
 randomWeapon()
 Diluc.addWeapon(weapon0)
-weaponOnBoard[0].spotWeapons()
-// weapon1.spotWeapons()
-// weapon2.spotWeapons()
+Razor.addWeapon(weapon0)
 
 let playersWhoPlay = [
     Diluc,
