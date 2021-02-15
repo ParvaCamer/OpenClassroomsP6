@@ -56,8 +56,9 @@ class Character {
     var myHandler = function (event) {
       let valueOfCaseClicked = parseInt($(this).attr("id"));
       console.log("TOUR DE " + that.classAttribute);
-      if (that.positionToClick.includes(valueOfCaseClicked) === true) {
+      if (that.positionToClick.includes(valueOfCaseClicked) === true && that.position !== valueOfCaseClicked) {
         console.log("Le joueur peut se déplacer sur cette case");
+        that.takeWeapon($(this))
         that.setPlayerPosition(valueOfCaseClicked);
 
         Array.from(elements).forEach(function (element) {
@@ -102,11 +103,11 @@ class Character {
     console.log("Arme ajoutée " + weapon.name + " à " + this.classAttribute)
   }
 
-  switchWeapon(caseWeapon) {
-    let oldWeapon = $('#' + caseWeapon);
+  switchWeapon(caseWeapon, weapon) {
+    let oldWeapon = caseWeapon
     oldWeapon.addClass(this.weapon.classAttribute);
 
-    let newWeapon = $('#' + newCaseWeapon);
+    let newWeapon = weapon
     newWeapon.removeClass(this.weapon.classAttribute);
 
     this.addWeapon(newWeapon)
@@ -114,11 +115,12 @@ class Character {
 
   takeWeapon() {
     let player = $("." + this.classAttribute);
-    let hasWeapon = $('#' + this.position).hasClass('weaponBox');
+    let weapon = $('#' + this.position)
+    let hasWeapon = weapon.hasClass('weaponBox');
 
     if (hasWeapon) {
       console.log("une arme se situe sur cette case")
-      this.switchWeapon(player)
+      this.switchWeapon(player, weapon)
     }
   }      
 }
