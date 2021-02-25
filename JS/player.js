@@ -1,7 +1,8 @@
 class Character {
-  constructor(classAttribute, PV) {
+  constructor(classAttribute, PV, action) {
     this.classAttribute = classAttribute;
     this.PV = PV;
+    this.action = 1; // 1 pour attaque - 2 pour défense
     this.position = -1;
     this.positionToClick = [];
   }
@@ -30,7 +31,6 @@ class Character {
     let left = stringPlayer1 - 1, right = stringPlayer1 + 1, top = stringPlayer1 - 10, bot = stringPlayer1 + 10;
 
     if (left == stringPlayer2 || right == stringPlayer2 || top == stringPlayer2 || bot == stringPlayer2) {
-      players.removeClass("Diluc");
       players.removeClass(this.classAttribute);
       this.spotPlayer();
     }
@@ -48,7 +48,7 @@ class Character {
     this.position = positionCase;
   }
 
-  movePlayer() {
+  movePlayer(allWeaponsOnBoard) {
     this.showCasesToMoove();
     let that = this;
     var elements = document.getElementsByClassName("caseVide");
@@ -58,8 +58,9 @@ class Character {
       console.log("TOUR DE " + that.classAttribute);
       if (that.positionToClick.includes(valueOfCaseClicked) === true && that.position !== valueOfCaseClicked) {
         console.log("Le joueur peut se déplacer sur cette case");
-        that.takeWeapon($(this))
+        console.log($(this))
         that.setPlayerPosition(valueOfCaseClicked);
+        that.takeWeapon(allWeaponsOnBoard)
 
         Array.from(elements).forEach(function (element) {
           element.removeEventListener("click", myHandler);
@@ -78,6 +79,7 @@ class Character {
 
   showCasesToMoove() {
     let position = this.position;
+    this.positionToClick = []
     for (let i = 0; i <= 3; i++) { // pour aller à droite
       $("#" + position + i).addClass("cellToClick");
       this.positionToClick.push(position + i);
@@ -86,14 +88,15 @@ class Character {
       $("#" + position - i).addClass("cellToClick");
       this.positionToClick.push(position - i);
     }
-    for (let i = 0; i <= 30; i += 10) { // pour aller en bas
+    for (let i = 0; i <= 30; i += 10) { // pour aller en haut
       $("#" + position + i).addClass("cellToClick");
       this.positionToClick.push(position + i);
     }
-    for (let i = 0; i <= 30; i += 10) { // pour aller en haut
-      $("#" + position - i).addClass("cellToClick");
+    for (let i = 0; i <= 30; i += 10) { // pour aller en bas
+      // $("#" + position - i).addClass("cellToClick");
       this.positionToClick.push(position - i);
-    }
+    }    
+    console.log(this.positionToClick)
   }
 
   addWeapon(weapon) {
@@ -103,24 +106,37 @@ class Character {
     console.log("Arme ajoutée " + weapon.name + " à " + this.classAttribute)
   }
 
-  switchWeapon(caseWeapon, weapon) {
-    let oldWeapon = caseWeapon
-    oldWeapon.addClass(this.weapon.classAttribute);
+  switchWeapon(player, weaponCase, weapon) {
+    console.log(weaponCase)
+    weaponCase.removeClass(weapon.classAttribute);
+    weaponCase.removeClass("weaponBox")
 
-    let newWeapon = weapon
-    newWeapon.removeClass(this.weapon.classAttribute);
-
-    this.addWeapon(newWeapon)
+    this.addWeapon(weapon)
   }
 
-  takeWeapon() {
+  takeWeapon(allWeapons) {
     let player = $("." + this.classAttribute);
-    let weapon = $('#' + this.position)
-    let hasWeapon = weapon.hasClass('weaponBox');
+    let weaponCase = $('#' + this.position)
+    let hasWeapon = weaponCase.hasClass('weaponBox');
 
     if (hasWeapon) {
       console.log("une arme se situe sur cette case")
-      this.switchWeapon(player, weapon)
+      let theWeapon = {}
+      let that = this
+      allWeapons.forEach(function (weapon) {
+        console.log(weapon)
+          if (weapon.position === that.position){
+            theWeapon = weapon
+          }
+        });
+      this.switchWeapon(player, weaponCase, theWeapon)
     }
-  }      
+  }
+  
+  // beginFight() {
+  //   let thatPosition = this.positionToClick[0] //il faut la position du J1 et du J2
+  //   if () {
+  //     this.fight("Diluc", "Razor", theChoosenOne);
+  //   }
+  // }
 }

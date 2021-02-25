@@ -12,16 +12,18 @@ let Parva = new Character("Parva", 160)
 Diluc.spotPlayer()
 Razor.spotPlayer()
 Diluc.notAround()
+// Diluc.beginFight()
 
-let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob")
-let weapon1 = new Weapon("Ombre immaculée", "Ombre")
-let weapon2 = new Weapon("Épée du faucon", "Faucon")
-let weapon3 = new Weapon("Lance de jade ailée", "JadeAilée")
-let weapon4 = new Weapon("Fléau du dragon", "Dragon")
-let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur")
-let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup")
-let weapon7 = new Weapon("La Flûte", "Flûte")
+let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob", 10)
+let weapon1 = new Weapon("Ombre immaculée", "Ombre", 40)
+let weapon2 = new Weapon("Épée du faucon", "Faucon", 28)
+let weapon3 = new Weapon("Lance de jade ailée", "JadeAilée", 30)
+let weapon4 = new Weapon("Fléau du dragon", "Dragon", 32)
+let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur", 24)
+let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup", 36)
+let weapon7 = new Weapon("La Flûte", "Flûte", 14)
 
+// affichage des armes aléatoires sur le board //
 let allWeapons = [
     weapon1,
     weapon2,
@@ -33,8 +35,8 @@ let allWeapons = [
 ]
 let weaponOnBoard = []
 
-function randomWeapon() {
-    for (let i = 0; i < 3; i++) {
+function randomWeapon(nbOfWeapon) {
+    for (let i = 0; i < nbOfWeapon; i++) {
       let random = Math.floor(Math.random() * allWeapons.length);
       let aWeapon = allWeapons[random];
       allWeapons.splice(random, 1);
@@ -44,7 +46,7 @@ function randomWeapon() {
     })
 }
 
-randomWeapon()
+randomWeapon(3)
 Diluc.addWeapon(weapon0)
 Razor.addWeapon(weapon0)
 
@@ -60,7 +62,8 @@ let playerNumberToPlay = {
       this.setting = 0
 	  numberOfTurn.setting++;
     }else{
-		playersWhoPlay[this.setting].movePlayer();
+	    console.log(weaponOnBoard)
+		playersWhoPlay[this.setting].movePlayer(weaponOnBoard);
 	}
   },
   get setting() {
@@ -75,8 +78,8 @@ let playerNumberToPlay = {
 let numberOfTurn = {
   value: 0,
   letMeKnow() {
-	if (this.setting === 99) {
-		console.log("FIN DE LA PARTIE")
+	if (this.setting === 10) {
+		alert("FIN DE LA PARTIE")
 		playersWhoPlay = []
     }
   },

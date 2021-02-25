@@ -1,7 +1,9 @@
 class Weapon {
-    constructor(name, classAttribute) {
+    constructor(name, classAttribute, damage) {
         this.name = name
         this.classAttribute = classAttribute;
+        this.damage = damage
+        this.position = 0
     }
 
     spotWeapons() {
@@ -14,6 +16,7 @@ class Weapon {
             } else {
                 weaponBox.addClass("weaponBox")
                 weaponBox.addClass(this.classAttribute)
+                this.position = random
             }
         }
     }

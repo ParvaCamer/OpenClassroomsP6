@@ -1,4 +1,13 @@
 /***** ******/
+/*   Home   */
+/***** ******/
+.dilucHome {
+  width: 20%;
+}
+.razorHome {
+  width: 20%;
+}
+/***** ******/
 /*  Board   */
 /***** ******/
 .caseVide,
@@ -23,6 +32,10 @@ table {
 }
 .weaponBox {
   background-image: none;
+}
+.cellToClick {
+  background-image: none;
+  background-color: red;
 }
 /***** ******/
 /*  Player  */
