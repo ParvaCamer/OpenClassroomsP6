@@ -51,56 +51,32 @@ randomWeapon(3);
 Diluc.addWeapon(weapon0);
 Razor.addWeapon(weapon0);
 
-function letsGo() {
+async function letsGo() {
   let playersWhoPlay = [Diluc, Razor];
   let numberOfTurn = 0;
   let weCanPlay = true;
-  while (numberOfTurn < 10 || weCanPlay == true) {
-
-    for (let i = 0; i <= playersWhoPlay.length; i++) {
-      playersWhoPlay[i].movePlayer(weaponOnBoard);
-    } numberOfTurn++;
-    playersWhoPlay = [];
+  let playerOne = null
+  let playerTwo = null
+  while (numberOfTurn < 10 && weCanPlay === true) {
+    console.log("Nouveau tour")
+    for (let i = 0; i < playersWhoPlay.length; i++) {
+      if (weCanPlay) {
+        await playersWhoPlay[i].movePlayer(weaponOnBoard)
+        weCanPlay = playersWhoPlay[i].isFrontOfPlayer(playersWhoPlay[i === 1 ? 0 : 1])
+        if (weCanPlay === false) {
+          playerOne = playersWhoPlay[i]
+          playerTwo = playersWhoPlay[i === 1 ? 0 : 1]
+        }
+      }
+    }
+    numberOfTurn++;
+    console.log("Nombre de tours : ", numberOfTurn)
+  }
+  if (numberOfTurn < 10) {
+    console.log("Start combat !")
+    fight(playerOne, playerTwo)
+  } else {
+    console.log("Partie terminée ! Nombre de tours : ", numberOfTurn)
   }
 }
 letsGo()
-
-
-// let playerNumberToPlay = {
-//   value: 0,
-//   letMeKnow() {
-//     if (this.setting === 2) {
-//       this.setting = 0;
-//       numberOfTurn.setting++;
-//     } else {
-//       console.log(weaponOnBoard);
-//       playersWhoPlay[this.setting].movePlayer(weaponOnBoard);
-//     }
-//   },
-//   get setting() {
-//     return this.value;
-//   },
-//   set setting(value) {
-//     this.value = value;
-//     this.letMeKnow();
-//   },
-// };
-
-// let numberOfTurn = {
-//   value: 0,
-//   letMeKnow() {
-//     if (this.setting === 10) {
-//       alert("FIN DE LA PARTIE");
-//       playersWhoPlay = [];
-//     }
-//   },
-//   get setting() {
-//     return this.value;
-//   },
-//   set setting(value) {
-//     this.value = value;
-//     this.letMeKnow();
-//   },
-// };
-
-playersWhoPlay[0].movePlayer();

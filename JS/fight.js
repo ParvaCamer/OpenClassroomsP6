@@ -1,5 +1,6 @@
-function fight(playerOne, playerTwo, theChoosenOne) {
+function fight(playerOne, playerTwo) {
     console.log("bien vu");
+    let theChoosenOne = playerOne
     if (theChoosenOne == playerOne) {
         this.ennemy = playerTwo;
     } else if (theChoosenOne == playerTwo) {
