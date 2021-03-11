@@ -35,7 +35,7 @@ class board {
       } else {
         box.hasClass("caseObstacle");
       }
-    } 
+    }
   }
 }
 

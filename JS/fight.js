@@ -1,5 +1,4 @@
 function fight(playerOne, playerTwo) {
-    console.log("bien vu");
     let theChoosenOne = playerOne
     if (theChoosenOne == playerOne) {
         this.ennemy = playerTwo;
@@ -25,5 +24,4 @@ function fight(playerOne, playerTwo) {
             this.ennemy.damage = this.ennemy.damage / 2;
         }
     }
-
 }

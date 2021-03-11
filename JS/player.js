@@ -77,7 +77,6 @@ class Character {
 
                     this.removeEventListener("click", myHandler);
                     Array.from(that.positionToClick).forEach(function (position) {
-                        console.log("On supprime la class sur ", position)
                         $('#' + position).removeClass("cellToClick")
                     })
                     resolve()
@@ -98,7 +97,7 @@ class Character {
         for (let i = 0; i <= 3; i++) {// pour aller à droite
             let positionCounted = position + i
             let checkCase = $("#" + positionCounted)
-            if (checkCase.hasClass("caseObstacle") === false && obstacleBefore === false || positionCounted % 10 === 0) {
+            if (checkCase.hasClass("caseObstacle") === false && obstacleBefore === false || positionCounted % 10 === 9) {
                 checkCase.addClass("cellToClick");
                 this.positionToClick.push(position + i);
             } else {
@@ -109,7 +108,6 @@ class Character {
         for (let i = 0; i <= 3; i++) {// pour aller à gauche
             let positionCounted = position - i
             let checkCase = $("#" + positionCounted)
-            console.log(positionCounted)
             if (checkCase.hasClass("caseObstacle") === false && obstacleBefore === false || positionCounted % 10 === 9) {
                 checkCase.addClass("cellToClick");
                 this.positionToClick.push(position - i);

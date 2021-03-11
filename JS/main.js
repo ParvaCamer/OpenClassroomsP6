@@ -12,16 +12,15 @@ let Parva = new Character("Parva", 160);
 Diluc.spotPlayer();
 Razor.spotPlayer();
 Diluc.notAround();
-// Diluc.beginFight();
 
-let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob", 10);
-let weapon1 = new Weapon("Ombre immaculée", "Ombre", 40);
-let weapon2 = new Weapon("Épée du faucon", "Faucon", 28);
-let weapon3 = new Weapon("Lance de jade ailée", "JadeAilée", 30);
-let weapon4 = new Weapon("Fléau du dragon", "Dragon", 32);
-let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur", 24);
-let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup", 36);
-let weapon7 = new Weapon("La Flûte", "Flûte", 14);
+let weapon0 = new Weapon(1, "Épée de vagabond", "ÉpéeDeNoob", 10);
+let weapon1 = new Weapon(2, "Ombre immaculée", "Ombre", 40);
+let weapon2 = new Weapon(3, "Épée du faucon", "Faucon", 28);
+let weapon3 = new Weapon(4, "Lance de jade ailée", "JadeAilée", 30);
+let weapon4 = new Weapon(5, "Fléau du dragon", "Dragon", 32);
+let weapon5 = new Weapon(6, "Lance de la voûte d'Azur", "VoûteAzur", 24);
+let weapon6 = new Weapon(7, "Mort-du-loup", "MortDuLoup", 36);
+let weapon7 = new Weapon(8, "La Flûte", "Flûte", 14);
 
 // affichage des armes aléatoires sur le board //
 let allWeapons = [
@@ -48,8 +47,6 @@ function randomWeapon(nbOfWeapon) {
 }
 
 randomWeapon(3);
-Diluc.addWeapon(weapon0);
-Razor.addWeapon(weapon0);
 
 async function letsGo() {
   let playersWhoPlay = [Diluc, Razor];
