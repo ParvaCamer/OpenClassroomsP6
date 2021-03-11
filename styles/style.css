@@ -35,8 +35,12 @@ table {
 }
 .cellToClick {
   background-image: none;
-  background-color: red;
+  background-color: rgba(107, 204, 10, 0.774);
 }
+.cellToClick:hover {
+  background-color: rgba(107, 204, 10, 0.349);
+}
+
 /***** ******/
 /*  Player  */
 /***** ******/
@@ -117,4 +121,21 @@ table {
   background-image: url("https://uploadstatic.mihoyo.com/ys-obc/2020/07/17/75795471/cf572b27ab0c4934984f05af1307888e_8924902473808502556.png");
   background-size: cover;
   border: solid 2px;
+}
+/*****  ******/
+/* Interface */
+/*****  ******/
+#interface {
+  margin-left: 680px;
+}
+#interfaceP1 {
+  border: solid 2px;
+  margin-bottom: 200px;
+}
+#interfaceP2 {
+  border: solid 2px;
+}
+#hpJ1 {
+  margin-top: -4px;
+  margin-left: 80px;
 }
