@@ -1,5 +1,5 @@
 function fight(playerOne, playerTwo) {
-    let theChoosenOne = playerOne
+
     if (theChoosenOne == playerOne) {
         this.ennemy = playerTwo;
     } else if (theChoosenOne == playerTwo) {
@@ -21,7 +21,14 @@ function fight(playerOne, playerTwo) {
     function defense() {
         if (theChoosenOne.action == 1) {//ici en attaque
             theChoosenOne.action = 2; // passe en défense
-            this.ennemy.damage = this.ennemy.damage / 2;
         }
+    }
+
+    function displayButton(player) { // affiche les boutons
+        let $btn_attack = $('<button class=" " id="btn_attack"> Attaquer </button>')
+        let $btn_defense = $('<button class =" " id="btn_defense"> Défendre </button>')
+
+        $('#weaponDamageJ' + player).append($btn_attack)
+        $('#weaponDamageJ' + player).append($btn_defense)
     }
 }

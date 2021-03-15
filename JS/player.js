@@ -18,18 +18,22 @@ class Character {
     }
 
     loseHp(value) {
-        if (this.action === false) {
+        if (this.action === false) { //si il est en position défense
             value = value / 2;
             this.PV -= value
         } else {
-            this.PV -= value
+            this.PV -= value // si il est en position attaque
         }
         $('#currentHpJ' + this.order).text(this.PV)
 
         return this.PV <= 0 // return true si le personnage est mort !
     }
 
-    spotPlayer() {
+    actionPlayer(newAction) {
+        this.action = newAction;
+    }
+
+    spotPlayer() { // affiche les joueurs
         for (let p = 0; p < 1; p++) {
             let random = Math.floor(Math.random() * 100);
             let littleBox = $("#" + random);
@@ -45,7 +49,7 @@ class Character {
         }
     }
 
-    notAround() {
+    notAround() { // pour que les joueurs n'apparaissent pas à côté
         // mettre que ça sera la classe du joueur 1 et 2 cliqué après évènement html
         let players = $(".casePlayer");
         let stringPlayer1 = parseInt($(".Diluc").attr("id")); // convertit l'id en entier
@@ -106,7 +110,7 @@ class Character {
         })
     }
 
-    showCasesToMoove() {
+    showCasesToMoove() { // affiche les déplacements disponibles
         let position = this.position;
         this.positionToClick = [];
         let obstacleBefore = false
