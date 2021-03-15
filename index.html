@@ -1,41 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <title>Document</title>
-    <link rel="stylesheet" href="styles/style.css" />
-  </head>
+    <link rel="stylesheet" href="styles/style.css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
 
-  <body>
-    <table>
-      <tbody></tbody>
-    </table>
-    <div id='interface'>
-      <div id='interfaceP1'>
-        <h4 class='nom'>Joueur 1</h4>
-        <progress max='100' value='100'></progress>
-        <p id='hpJ1'> 200 / 200 hp</p>
-        <button id="attackP1" onClick="attack()">Attaquer</button>
-        <button id="defenseP1" onClick="defense()">Défendre</button>
-      </div>
-      <div id='interfaceP2'>
-        <h4 class='nom'>Joueur 2</h4>
-        <progress max='100' value='100'></progress>
-        <p id='hpJ2'> 200 / 200 hp</p>
-        <button id="attackP2" onClick="attack()">Attaquer</button>
-        <button id="defenseP2" onClick="defense()">Défendre</button>
-      </div>
+<body>
+<table>
+    <tbody></tbody>
+</table>
+<div id='interface'>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div id='interfaceP1'>
+                    <h4 class='nom'>Joueur 1 : <span id="nameJ1"></span></h4>
+                    <img id="imgPlayerJ1" src="" alt =""><br />
+                    <progress max='100' value='100'></progress>
+                    <p><span id="currentHpJ1"></span>/ <span id="totalHpJ1"></span> hp</p>
+                    <img id="imgWeaponJ1" src="" alt="">
+                    <p>Nom de l'arme : <span id="weaponNameJ1"></span></p>
+                    <p>Dégâts de l'arme : <span id="weaponDamageJ1"></span></p>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div id='interfaceP2'>
+                    <h4 class='nom'>Joueur 2 : <span id="nameJ2"></span></h4>
+                    <img id="imgPlayerJ2" src="" alt ="">
+                    <progress max='100' value='100'></progress>
+                    <p><span id="currentHpJ2"></span>/ <span id="totalHpJ2"></span> hp</p>
+                    <img id="imgWeaponJ2" src="" alt="">
+                    <p>Nom de l'arme : <span id="weaponNameJ2"></span></p>
+                    <p>Dégâts de l'arme : <span id="weaponDamageJ2"></span></p>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.min.js"
-      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-      crossorigin="anonymous"
-    ></script>
-    <script src="JS/board.js" type="text/javascript"></script>
-    <script src="JS/player.js" type="text/javascript"></script>
-    <script src="JS/weapon.js" type="text/javascript"></script>
-    <script src="JS/fight.js" type="text/javascript"></script>
-    <script src="JS/main.js" type="text/javascript"></script>
-  </body>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"
+></script>
+<script src="JS/board.js" type="text/javascript"></script>
+<script src="JS/player.js" type="text/javascript"></script>
+<script src="JS/weapon.js" type="text/javascript"></script>
+<script src="JS/fight.js" type="text/javascript"></script>
+<script src="JS/main.js" type="text/javascript"></script>
+</body>
 </html>

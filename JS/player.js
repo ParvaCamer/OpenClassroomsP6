@@ -1,10 +1,32 @@
 class Character {
-    constructor(classAttribute, PV, action) {
+    constructor(classAttribute, PV, srcImg) {
         this.classAttribute = classAttribute;
         this.PV = PV;
-        this.action = 1; // 1 pour attaque - 2 pour défense
+        this.srcImg = srcImg;
+        this.action = false; // true pour attaque - false pour défense
         this.position = -1;
         this.positionToClick = [];
+        this.order = 0
+    }
+
+    setOrder(order) {
+        this.order = order
+        $('#nameJ' + order).text(this.classAttribute)
+        $('#imgPlayerJ' + order).attr("src", this.srcImg)
+        $('#currentHpJ' + order).text(this.PV)
+        $('#totalHpJ' + order).text(this.PV)
+    }
+
+    loseHp(value) {
+        if (this.action === false) {
+            value = value / 2;
+            this.PV -= value
+        } else {
+            this.PV -= value
+        }
+        $('#currentHpJ' + this.order).text(this.PV)
+
+        return this.PV <= 0 // return true si le personnage est mort !
     }
 
     spotPlayer() {
@@ -13,9 +35,7 @@ class Character {
             let littleBox = $("#" + random);
 
             if (
-                littleBox.hasClass("casePlayer") ||
-                littleBox.hasClass("caseObstacle")
-            ) {
+                littleBox.hasClass("casePlayer") || littleBox.hasClass("caseObstacle")) {
                 p--;
             } else {
                 littleBox.addClass("casePlayer");
@@ -31,10 +51,7 @@ class Character {
         let stringPlayer1 = parseInt($(".Diluc").attr("id")); // convertit l'id en entier
         let stringPlayer2 = parseInt($(".Razor").attr("id"));
 
-        let left = stringPlayer1 - 1,
-            right = stringPlayer1 + 1,
-            top = stringPlayer1 - 10,
-            bot = stringPlayer1 + 10;
+        let left = stringPlayer1 - 1, right = stringPlayer1 + 1, top = stringPlayer1 - 10, bot = stringPlayer1 + 10;
 
         if (left == stringPlayer2 || right == stringPlayer2 || top == stringPlayer2 || bot == stringPlayer2) {
             players.removeClass(this.classAttribute);
@@ -54,20 +71,19 @@ class Character {
         this.position = positionCase;
     }
 
-    movePlayer(allWeaponsOnBoard) {
+    movePlayer(allWeaponsOnBoard, otherPlayer) {
 
         console.log("TOUR DE " + this.classAttribute);
         return new Promise(resolve => {
             this.showCasesToMoove();
             let that = this;
-
             const elements = document.getElementsByClassName("caseVide");
             var myHandler = function (event) {
                 let valueOfCaseClicked = parseInt($(this).attr("id"));
-                if (that.positionToClick.includes(valueOfCaseClicked) === true && that.position !== valueOfCaseClicked) {
+                let otherPosition = otherPlayer.position;
+                if (that.positionToClick.includes(valueOfCaseClicked) === true && that.position !== valueOfCaseClicked && otherPosition !== valueOfCaseClicked) {
                     that.canPlay = false
                     console.log("Le joueur peut se déplacer sur cette case");
-                    console.log($(this));
                     that.setPlayerPosition(valueOfCaseClicked);
                     that.takeWeapon(allWeaponsOnBoard);
 
@@ -97,9 +113,12 @@ class Character {
         for (let i = 0; i <= 3; i++) {// pour aller à droite
             let positionCounted = position + i
             let checkCase = $("#" + positionCounted)
-            if (checkCase.hasClass("caseObstacle") === false && obstacleBefore === false || positionCounted % 10 === 9) {
+            if (checkCase.hasClass("caseObstacle") === false && obstacleBefore === false) {
                 checkCase.addClass("cellToClick");
                 this.positionToClick.push(position + i);
+                if ((positionCounted + 1) % 10 === 0) {
+                    obstacleBefore = true
+                }
             } else {
                 obstacleBefore = true
             }
@@ -108,9 +127,12 @@ class Character {
         for (let i = 0; i <= 3; i++) {// pour aller à gauche
             let positionCounted = position - i
             let checkCase = $("#" + positionCounted)
-            if (checkCase.hasClass("caseObstacle") === false && obstacleBefore === false || positionCounted % 10 === 9) {
+            if (checkCase.hasClass("caseObstacle") === false && obstacleBefore === false) {
                 checkCase.addClass("cellToClick");
                 this.positionToClick.push(position - i);
+                if (positionCounted % 10 === 0) {
+                    obstacleBefore = true
+                }
             } else {
                 obstacleBefore = true
             }
@@ -137,13 +159,14 @@ class Character {
                 obstacleBefore = true
             }
         }
-        console.log(this.positionToClick);
     }
 
     addWeapon(weapon) {
         this.weapon = weapon;
         this.weapon.addOwner(this); //ajout de l'arme au personnage désigné
-
+        $('#weaponDamageJ' + this.order).text(weapon.damage)
+        $('#weaponNameJ' + this.order).text(weapon.name)
+        $('#imgWeaponJ' + this.order).attr("src", weapon.srcImg)
         console.log("Arme ajoutée " + weapon.name + " à " + this.classAttribute);
     }
 

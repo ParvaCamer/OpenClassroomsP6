@@ -12,14 +12,16 @@
 /***** ******/
 .caseVide,
 .caseObstacle {
-  height: 60px;
-  width: 60px;
+  height: 65px;
+  width: 65px;
   border: solid 2px;
   background-size: contain;
   background-repeat: no-repeat;
   text-align: center;
 }
 table {
+  margin-top: 30px;
+  margin-left: 20px;
   border-collapse: collapse;
   table-layout: fixed;
   float: left;
@@ -45,17 +47,17 @@ table {
 /*  Player  */
 /***** ******/
 .Diluc {
-  background-image: url("https://i.pinimg.com/564x/14/3c/ee/143cee249f14ef13091ea368ed6019d6.jpg");
+  background-image: url("https://i.pinimg.com/564x/14/3c/ee/143cee249f14ef13091ea368ed6019d6.jpg") !important;
   background-size: cover;
   border: solid 2px;
 }
 .Childe {
-  background-image: url("https://i.pinimg.com/474x/95/87/ae/9587aeacbe67dac6e10639677b4b635a.jpg");
+  background-image: url("https://i.pinimg.com/474x/95/87/ae/9587aeacbe67dac6e10639677b4b635a.jpg") !important;
   background-size: cover;
   border: solid 2px;
 }
 .Razor {
-  background-image: url("https://i.pinimg.com/564x/02/95/9b/02959b21ed97c5291e9926e3e89a5507.jpg");
+  background-image: url("https://i.pinimg.com/564x/02/95/9b/02959b21ed97c5291e9926e3e89a5507.jpg") !important;
   background-size: cover;
   border: solid 2px;
 }
@@ -126,16 +128,28 @@ table {
 /* Interface */
 /*****  ******/
 #interface {
-  margin-left: 680px;
+  margin-left: 50px;
 }
-#interfaceP1 {
-  border: solid 2px;
-  margin-bottom: 200px;
-}
+#interfaceP1,
 #interfaceP2 {
   border: solid 2px;
+  margin-top: 100px;
+  margin-left: 20px;
 }
 #hpJ1 {
   margin-top: -4px;
   margin-left: 80px;
+}
+#imgWeaponJ1,
+#imgWeaponJ2 {
+  height: 100px;
+  margin-top: 30px;
+  margin-left: 70px;
+}
+#imgPlayerJ1,
+#imgPlayerJ2 {
+  height: 200px;
+}
+h4 {
+  text-align: center;
 }
