@@ -153,3 +153,9 @@ table {
 h4 {
   text-align: center;
 }
+.button1 {
+  float: left;
+}
+.button2 {
+  float: right;
+}

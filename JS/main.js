@@ -13,15 +13,15 @@ let playerOnBoard = [Diluc, Childe]
 
 playerOnBoard[0].spotPlayer();
 playerOnBoard[1].spotPlayer();
-playerOnBoard[0].notAround();
+playerOnBoard[0].notAround(playerOnBoard[1]);
 
 let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob", 10, "images/arme1.png");
-let weapon1 = new Weapon("Ombre immaculée", "Ombre", 40, "images/arme2.png");
+let weapon1 = new Weapon("Ombre immaculée", "Ombre", 36, "images/arme2.png");
 let weapon2 = new Weapon("Épée du faucon", "Faucon", 28, "images/arme3.png");
 let weapon3 = new Weapon("Lance de jade ailée", "JadeAilée", 30, "images/arme4.png");
 let weapon4 = new Weapon("Fléau du dragon", "Dragon", 32, "images/arme5.png");
 let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur", 24, "images/arme6.png");
-let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup", 36, "images/arme7.png");
+let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup", 40, "images/arme7.png");
 let weapon7 = new Weapon("La Flûte", "Flûte", 14, "images/arme8.png");
 
 // affichage des armes aléatoires sur le board //
@@ -51,6 +51,7 @@ function randomWeapon(nbOfWeapon) {
 randomWeapon(3);
 
 async function letsGo() {
+  weaponOnBoard.push(weapon0)
   let playersWhoPlay = [Diluc, Childe];
   playersWhoPlay[0].setOrder(1)
   playersWhoPlay[1].setOrder(2)
@@ -64,7 +65,7 @@ async function letsGo() {
     console.log("Nouveau tour")
     for (let i = 0; i < playersWhoPlay.length; i++) {
       if (weCanPlay) {
-        await playersWhoPlay[i].movePlayer(weaponOnBoard, playersWhoPlay[i === 1 ? 0 : 1])
+        await playersWhoPlay[i].movePlayer(weaponOnBoard)
         weCanPlay = playersWhoPlay[i].isFrontOfPlayer(playersWhoPlay[i === 1 ? 0 : 1])
         if (weCanPlay === false) {
           playerOne = playersWhoPlay[i]
@@ -77,7 +78,7 @@ async function letsGo() {
   }
   if (numberOfTurn < 10) {
     console.log("Start combat !")
-    fight(playerOne, playerTwo)
+    let theFight = new fight(playersWhoPlay)
   } else {
     console.log("Partie terminée ! Nombre de tours : ", numberOfTurn)
   }
