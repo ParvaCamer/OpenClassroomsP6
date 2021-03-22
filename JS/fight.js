@@ -39,8 +39,21 @@ class fight {
 
     constructor(players) {
         this.players = players
-        console.log("Les joueurs : ", players)
+        console.log("Les joueurs : ", players[0], players[1])
         this.launchFight()
+    }
+
+    launchFight() {
+        let playerTurn = 1
+        let enemy = this.players[0]
+        this.displayButtons(1)
+
+        // while (this.players[0].isAlive() && this.players[1].isAlive()) {
+        //     enemy.loseHp(this.players[playerTurn].weapon.damage)
+        //     enemy = this.players[playerTurn]
+        //     playerTurn = playerTurn === 1 ? 0 : 1
+        //     // this.players[playerTurn].loseHp(500)
+        // }
     }
 
     displayButtons(turnPlayer) {
@@ -49,30 +62,30 @@ class fight {
         let $btn_attack = $('<button class="button1" id="btn_attack"> Attaquer </button>')
         let $btn_defense = $('<button class ="button2" id="btn_defense"> Défendre </button>')
 
+        let playerWhoPlay = this.players[turnPlayer - 1]
+
+        let enemy = this.players[turnPlayer]
+
+        console.log('joueur qui joue :', playerWhoPlay.classAttribute)
+        console.log(turnPlayer)
+        console.log("ennemi : ", enemy)
+
         $('#weaponDamageJ' + turnPlayer).append($btn_attack)
         $('#weaponDamageJ' + turnPlayer).append($btn_defense)
         let that = this
         let defense = $('#btn_defense').on("click", function () {
-            // Le reste est à faire ici !
+            playerWhoPlay.setDefenseMode()
+            console.log("le joueur", playerWhoPlay.classAttribute, "est en position de défense", playerWhoPlay.defend)
             that.displayButtons(turnPlayer === 1 ? 2 : 1)
             this.removeEventListener("click", defense);
         })
         let attack = $('#btn_attack').on("click", function () {
             // Le reste est à faire ici !
+            enemy.loseHp()
+
+
             that.displayButtons(turnPlayer === 1 ? 2 : 1)
             this.removeEventListener("click", attack);
         })
-    }
-
-    launchFight() {
-        let playerTurn = 1
-        let enemy = this.players[0]
-        this.displayButtons(1)
-        while (this.players[0].isAlive() && this.players[1].isAlive()) {
-            enemy.loseHp(this.players[playerTurn].weapon.damage)
-            enemy = this.players[playerTurn]
-            playerTurn = playerTurn === 1 ? 0 : 1
-            this.players[playerTurn].loseHp(500)
-        }
     }
 }

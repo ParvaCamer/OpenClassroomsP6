@@ -6,8 +6,8 @@ class Character {
         this.defend = false; // true pour attaque - false pour défense
         this.position = -1;
         this.positionToClick = [];
-        this.order = 0
-        this.weapon = null
+        this.order = 0;
+        this.weapon = null;
     }
 
     setOrder(order) {
@@ -93,7 +93,6 @@ class Character {
                     that.canPlay = false
                     that.setPlayerPosition(valueOfCaseClicked);
                     that.takeWeapon(allWeaponsOnBoard);
-                    console.log(allWeaponsOnBoard)
 
                     Array.from(elements).forEach(function (element) {
                         element.removeEventListener("click", myHandler);
@@ -181,32 +180,13 @@ class Character {
         }
     }
 
-    addWeapon(weapon) {
-        this.weapon = weapon;
-        this.weapon.addOwner(this); //ajout de l'arme au personnage désigné
-        $('#weaponDamageJ' + this.order).text(weapon.damage)
-        $('#weaponNameJ' + this.order).text(weapon.name)
-        $('#imgWeaponJ' + this.order).attr("src", weapon.srcImg)
-        console.log("Arme ajoutée " + weapon.name + " à " + this.classAttribute);
-    }
-
-    switchWeapon(player, weaponCase, weapon) {
-        console.log(weaponCase);
-        weaponCase.removeClass(weapon.classAttribute);
-        $('#' + this.position).addClass(this.weapon.classAttribute)
-
-        this.addWeapon(weapon);
-    }
-
     takeWeapon(allWeapons) {
-        let player = $("." + this.classAttribute);
         let weaponCase = $("#" + this.position);
         let hasWeapon = weaponCase.hasClass("weaponBox");
 
         if (hasWeapon) {
             console.log("une arme se situe sur cette case");
             let theWeapon = {};
-            console.log(theWeapon)
             let that = this;
             allWeapons.forEach(function (weapon) {
                 console.log(weapon);
@@ -214,8 +194,25 @@ class Character {
                     theWeapon = weapon;
                 }
             });
-            this.switchWeapon(player, weaponCase, theWeapon);
+            this.switchWeapon(weaponCase, theWeapon);
         }
+    }
+
+    switchWeapon(weaponCase, weapon) {
+        console.log(weaponCase);
+        weaponCase.removeClass(weapon.classAttribute);
+        $('#' + this.position).addClass(this.weapon.classAttribute)
+
+        this.addWeapon(weapon);
+    }
+
+    addWeapon(weapon) {
+        this.weapon = weapon;
+        this.weapon.addOwner(this); //ajout de l'arme au personnage désigné
+        $('#weaponDamageJ' + this.order).text(weapon.damage)
+        $('#weaponNameJ' + this.order).text(weapon.name)
+        $('#imgWeaponJ' + this.order).attr("src", weapon.srcImg)
+        console.log("Arme ajoutée " + weapon.name + " à " + this.classAttribute);
     }
 
     isFrontOfPlayer(otherPlayer) {
