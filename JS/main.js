@@ -61,6 +61,7 @@ async function letsGo() {
   let weCanPlay = true;
   let playerOne = null;
   let playerTwo = null;
+  console.log(weaponOnBoard)
   while (numberOfTurn < 10 && weCanPlay === true) {
     console.log("Nouveau tour")
     for (let i = 0; i < playersWhoPlay.length; i++) {

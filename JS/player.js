@@ -27,6 +27,9 @@ class Character {
         } else {
             this.PV -= value // si il est en position attaque
         }
+        if (this.PV < 0) {
+            this.PV = 0
+        }
         $('#currentHpJ' + this.order).text(this.PV)
     }
 
@@ -193,13 +196,17 @@ class Character {
                 if (weapon.position === that.position) {
                     theWeapon = weapon;
                 }
+                 if (that.weapon.classAttribute === weapon.classAttribute) {
+                    weapon.position = that.position
+                }
             });
             this.switchWeapon(weaponCase, theWeapon);
         }
     }
 
     switchWeapon(weaponCase, weapon) {
-        console.log(weaponCase);
+        console.log("on prend l'arme", weapon.classAttribute);
+        console.log("on pose l'arme", this.weapon.classAttribute);
         weaponCase.removeClass(weapon.classAttribute);
         $('#' + this.position).addClass(this.weapon.classAttribute)
 
