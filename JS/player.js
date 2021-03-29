@@ -95,7 +95,7 @@ class Character {
                 if (that.positionToClick.includes(valueOfCaseClicked) === true && that.position !== valueOfCaseClicked) {
                     that.canPlay = false
                     that.setPlayerPosition(valueOfCaseClicked);
-                    that.takeWeapon(allWeaponsOnBoard);
+                    that.takeWeapon(allWeaponsOnBoard, that.position);
 
                     Array.from(elements).forEach(function (element) {
                         element.removeEventListener("click", myHandler);
@@ -183,34 +183,46 @@ class Character {
         }
     }
 
-    takeWeapon(allWeapons) {
-        let weaponCase = $("#" + this.position);
-        let hasWeapon = weaponCase.hasClass("weaponBox");
+    // takeWeapon(allWeapons) {
+    //     let weaponCase = $("#" + this.position);
+    //     let hasWeapon = weaponCase.hasClass("weaponBox");
 
-        if (hasWeapon) {
-            console.log("une arme se situe sur cette case");
-            let theWeapon = {};
-            let that = this;
-            allWeapons.forEach(function (weapon) {
-                console.log(weapon);
-                if (weapon.position === that.position) {
-                    theWeapon = weapon;
-                }
-                 if (that.weapon.classAttribute === weapon.classAttribute) {
-                    weapon.position = that.position
-                }
-            });
-            this.switchWeapon(weaponCase, theWeapon);
+    //     if (hasWeapon) {
+    //         console.log("une arme se situe sur cette case");
+    //         let theWeapon = {};
+    //         let that = this;
+    //         allWeapons.forEach(function (weapon) {
+    //             console.log(weapon);
+    //             if (weapon.position === that.position) {
+    //                 theWeapon = weapon;
+    //             }
+    //             if (that.weapon.classAttribute === weapon.classAttribute) {
+    //                 weapon.position = that.position
+    //             }
+    //         });
+    //         this.switchWeapon(weaponCase, theWeapon);
+    //     }
+    // }
+
+    // switchWeapon(weaponCase, weapon) {
+    //     console.log("on prend l'arme", weapon.classAttribute);
+    //     console.log("on pose l'arme", this.weapon.classAttribute);
+    //     weaponCase.removeClass(weapon.classAttribute);
+    //     $('#' + this.position).addClass(this.weapon.classAttribute)
+
+    //     this.addWeapon(weapon);
+    // }
+
+    takeWeapon(allWeapons, posCase) {
+        let weaponCase = $('#' + this.position);
+
+        if (weaponCase.hasClass("weaponBox")) {
+            let previousWeapon = $("#" + posCase);
+            previousWeapon.removeClass(this.weapon.classAttribute);
+
+            let newWeapon = $("#" + this.position);
+            // newWeapon.removeClass(this.classAttribute);
         }
-    }
-
-    switchWeapon(weaponCase, weapon) {
-        console.log("on prend l'arme", weapon.classAttribute);
-        console.log("on pose l'arme", this.weapon.classAttribute);
-        weaponCase.removeClass(weapon.classAttribute);
-        $('#' + this.position).addClass(this.weapon.classAttribute)
-
-        this.addWeapon(weapon);
     }
 
     addWeapon(weapon) {
