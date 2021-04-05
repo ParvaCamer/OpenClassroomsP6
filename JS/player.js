@@ -2,6 +2,7 @@ class Character {
     constructor(classAttribute, PV, srcImg) {
         this.classAttribute = classAttribute;
         this.PV = PV;
+        this.totalPV = PV
         this.srcImg = srcImg;
         this.defend = false; // true pour attaque - false pour défense
         this.position = -1;
@@ -9,6 +10,85 @@ class Character {
         this.order = 0;
         this.weapon = null;
     }
+
+    /*****************/
+    /* Enchantements */
+    /*     Armes     */
+    /*****************/
+
+    addHp(value) {
+        console.log("Le joueur", this.classAttribute, "obtient un changement de", value, "sur la statistique HP")
+        this.PV += value
+        if (this.PV > this.totalPV) {
+            console.log("ATTENTION : Overheal", this.PV, ">", this.totalPV)
+            this.PV = this.totalPV
+        }
+        $('#currentHpJ' + this.order).text(this.PV)
+    }
+
+    maledictionHp(value) {
+        console.log("Le joueur", this.classAttribute, "obtient un changement de", value, "sur la statistique HP")
+        this.PV += value
+        if (this.PV > this.totalPV) {
+            console.log("ATTENTION : Overheal", this.PV, ">", this.totalPV)
+            this.PV = this.totalPV
+        }
+        $('#currentHpJ' + this.order).text(this.PV)
+    }
+
+    criticalHit(value) {
+        let randomIndex = Math.floor(Math.random() * 2);
+        console.log(randomIndex)
+        if (randomIndex === 0) {
+            console.log("Le joueur", this.classAttribute, "obtient un Coup Critique ! Ajout de", value, "sur la statistique ATQ")
+            this.weapon.damage += value
+        }
+        $('#weaponDamageJ' + this.order).text(this.weapon.damage)
+        $('#currentHpJ' + this.order).text(this.PV)
+    }
+
+    canBeKilled(value) {
+        let randomIndex = Math.floor(Math.random() * 4);
+        if (randomIndex === 0) {
+            this.PV = value
+            console.log("Le joueur", this.classAttribute, "s'est fait tuer par la puissance de Mort-du-Loup")
+        }
+        $('#currentHpJ' + this.order).text(this.PV)
+    }
+
+    sleeping() {
+        let randomIndex = Math.floor(Math.random() * 100);
+        let button = $('#btn_defense')
+        if (randomIndex < 43) {
+            console.log("Le joueur ennemi s'endort")
+            button.style.visibility = "hidden"
+
+        }
+    }
+
+    moreAtq(value) {
+        let randomIndex = Math.floor(Math.random() * 3);
+        console.log(randomIndex)
+        if (randomIndex === 0) {
+            console.log("Le joueur", this.classAttribute, "sacrifie une partie de ses HP pour gagner en attaque !")
+            this.PV -= value
+            this.weapon.damage = (this.weapon.damage * 2.5)
+        }
+        $('#weaponDamageJ' + this.order).text(this.weapon.damage)
+        $('#currentHpJ' + this.order).text(this.PV)
+    }
+
+    oneShot(value) {
+        let randomIndex = Math.floor(Math.random() * 2);
+        console.log("value:", value, "damage:", this.weapon.damage)
+        if (randomIndex === 0) {
+            this.weapon.damage += value
+            console.log("Le joueur", this.classAttribute, "obtient la toute puissance du Fléau du Dragon")
+        }
+        $('#weaponDamageJ' + this.order).text(this.weapon.damage)
+    }
+
+    /***************************************/
 
     setOrder(order) {
         this.order = order
@@ -19,18 +99,28 @@ class Character {
     }
 
     loseHp(value) {
-        console.log("Le joueur", this.classAttribute, " a perdu", value, " points de vie")
+        // On lance les effets d'avant combat ici
+        if (this.weapon.hasBegginingEffect()) {
+            console.log("Effet lancé au début du tour")
+            this.weapon.doEffect()
+        }
         if (this.defend === true) { //si il est en position défense
             value = value / 2;
             this.PV -= value
             this.defend = false
-        } else {
+        }
+        else {
             this.PV -= value // si il est en position attaque
         }
         if (this.PV < 0) {
             this.PV = 0
         }
         $('#currentHpJ' + this.order).text(this.PV)
+        // On lance les effets d'après combat ici
+        if (this.weapon.hasEndingEffect()) {
+            console.log("Effet lancé au fin du tour")
+            this.weapon.doEffect()
+        }
     }
 
     setDefenseMode() {
@@ -85,7 +175,6 @@ class Character {
 
     movePlayer(allWeaponsOnBoard) {
 
-        console.log("TOUR DE " + this.classAttribute);
         return new Promise(resolve => {
             this.showCasesToMoove();
             let that = this;
@@ -183,46 +272,31 @@ class Character {
         }
     }
 
-    // takeWeapon(allWeapons) {
-    //     let weaponCase = $("#" + this.position);
-    //     let hasWeapon = weaponCase.hasClass("weaponBox");
+    takeWeapon(allWeapons) {
+        let weaponCase = $("#" + this.position);
+        let hasWeapon = weaponCase.hasClass("weaponBox");
 
-    //     if (hasWeapon) {
-    //         console.log("une arme se situe sur cette case");
-    //         let theWeapon = {};
-    //         let that = this;
-    //         allWeapons.forEach(function (weapon) {
-    //             console.log(weapon);
-    //             if (weapon.position === that.position) {
-    //                 theWeapon = weapon;
-    //             }
-    //             if (that.weapon.classAttribute === weapon.classAttribute) {
-    //                 weapon.position = that.position
-    //             }
-    //         });
-    //         this.switchWeapon(weaponCase, theWeapon);
-    //     }
-    // }
-
-    // switchWeapon(weaponCase, weapon) {
-    //     console.log("on prend l'arme", weapon.classAttribute);
-    //     console.log("on pose l'arme", this.weapon.classAttribute);
-    //     weaponCase.removeClass(weapon.classAttribute);
-    //     $('#' + this.position).addClass(this.weapon.classAttribute)
-
-    //     this.addWeapon(weapon);
-    // }
-
-    takeWeapon(allWeapons, posCase) {
-        let weaponCase = $('#' + this.position);
-
-        if (weaponCase.hasClass("weaponBox")) {
-            let previousWeapon = $("#" + posCase);
-            previousWeapon.removeClass(this.weapon.classAttribute);
-
-            let newWeapon = $("#" + this.position);
-            // newWeapon.removeClass(this.classAttribute);
+        if (hasWeapon) {
+            let theWeapon = {};
+            let that = this;
+            allWeapons.forEach(function (weapon) {
+                if (weapon.position === that.position) {
+                    theWeapon = weapon;
+                    weapon.position = -1
+                }
+                if (that.weapon.classAttribute === weapon.classAttribute) {
+                    weapon.position = that.position
+                }
+            });
+            this.switchWeapon(weaponCase, theWeapon);
         }
+    }
+
+    switchWeapon(weaponCase, weapon) {
+        weaponCase.removeClass(weapon.classAttribute);
+        $('#' + this.position).addClass(this.weapon.classAttribute)
+
+        this.addWeapon(weapon);
     }
 
     addWeapon(weapon) {
@@ -231,7 +305,6 @@ class Character {
         $('#weaponDamageJ' + this.order).text(weapon.damage)
         $('#weaponNameJ' + this.order).text(weapon.name)
         $('#imgWeaponJ' + this.order).attr("src", weapon.srcImg)
-        console.log("Arme ajoutée " + weapon.name + " à " + this.classAttribute);
     }
 
     isFrontOfPlayer(otherPlayer) {

@@ -15,14 +15,15 @@ playerOnBoard[0].spotPlayer();
 playerOnBoard[1].spotPlayer();
 playerOnBoard[0].notAround(playerOnBoard[1]);
 
-let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob", 10, "images/arme1.png");
-let weapon1 = new Weapon("Ombre immaculée", "Ombre", 36, "images/arme2.png");
-let weapon2 = new Weapon("Épée du faucon", "Faucon", 28, "images/arme3.png");
-let weapon3 = new Weapon("Lance de jade ailée", "JadeAilée", 30, "images/arme4.png");
-let weapon4 = new Weapon("Fléau du dragon", "Dragon", 32, "images/arme5.png");
-let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur", 24, "images/arme6.png");
-let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup", 40, "images/arme7.png");
-let weapon7 = new Weapon("La Flûte", "Flûte", 14, "images/arme8.png");
+let weapon = new Weapon("Épée de vagabond", "ÉpéeDeNoob1", 10, "images/arme1.png", "addHp");
+let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob", 10, "images/arme1.png", "addHp");
+let weapon1 = new Weapon("Ombre immaculée", "Ombre", 36, "images/arme2.png", "addHp");
+let weapon2 = new Weapon("Épée du faucon", "Faucon", 28, "images/arme3.png", "criticalHit");
+let weapon3 = new Weapon("Lance de jade ailée", "JadeAilée", 30, "images/arme4.png", "moreAtq");
+let weapon4 = new Weapon("Fléau du dragon", "Dragon", 14, "images/arme5.png", "oneShot");
+let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur", 24, "images/arme6.png", "addHp"); //garder addHp
+let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup", 50, "images/arme7.png", "canBeKilled");
+let weapon7 = new Weapon("La Flûte", "Flûte", 18, "images/arme8.png", "sleeping");
 
 // affichage des armes aléatoires sur le board //
 let allWeapons = [
@@ -51,19 +52,18 @@ function randomWeapon(nbOfWeapon) {
 randomWeapon(3);
 
 async function letsGo() {
+  weaponOnBoard.push(weapon)
   weaponOnBoard.push(weapon0)
   let playersWhoPlay = [Diluc, Childe];
   playersWhoPlay[0].setOrder(1)
   playersWhoPlay[1].setOrder(2)
-  playersWhoPlay[0].addWeapon(weapon0)
+  playersWhoPlay[0].addWeapon(weapon)
   playersWhoPlay[1].addWeapon(weapon0)
   let numberOfTurn = 0;
   let weCanPlay = true;
   let playerOne = null;
   let playerTwo = null;
-  console.log(weaponOnBoard)
   while (numberOfTurn < 10 && weCanPlay === true) {
-    console.log("Nouveau tour")
     for (let i = 0; i < playersWhoPlay.length; i++) {
       if (weCanPlay) {
         await playersWhoPlay[i].movePlayer(weaponOnBoard)
@@ -75,10 +75,8 @@ async function letsGo() {
       }
     }
     numberOfTurn++;
-    console.log("Nombre de tours : ", numberOfTurn)
   }
   if (numberOfTurn < 10) {
-    console.log("Start combat !")
     let theFight = new fight(playersWhoPlay)
   } else {
     console.log("Partie terminée ! Nombre de tours : ", numberOfTurn)

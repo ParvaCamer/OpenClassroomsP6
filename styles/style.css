@@ -84,7 +84,7 @@ table {
 /***** ******/
 /*  Weapons */
 /***** ******/
-.ÉpéeDeNoob {
+.ÉpéeDeNoob, .ÉpéeDeNoob1 {
   background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB2zBPsUQYOlaIIhsDlZuSA325N9LfNUHD_g&usqp=CAU");
   background-size: cover;
   border: solid 2px;
