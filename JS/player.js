@@ -1,14 +1,106 @@
 class Character {
-    constructor(classAttribute, PV, srcImg) {
+    constructor(classAttribute, PV, srcImg, critical = 10) {
         this.classAttribute = classAttribute;
         this.PV = PV;
-        this.totalPV = PV
+        this.totalPV = PV;
         this.srcImg = srcImg;
         this.defend = false; // true pour attaque - false pour défense
         this.position = -1;
         this.positionToClick = [];
         this.order = 0;
         this.weapon = null;
+        this.isCritical = false;
+        this.critical = critical;
+        this.canOneShot = false;
+        this.sendSleep = false;
+        this.sendFire = false;
+        this.gainATQ = false;
+        this.canDoBoth = false;
+        this.effects = {
+            "sleeping": null,
+            "heal": null,
+            "fire": null
+        }
+    }
+
+    getDamages() {
+
+        // Calcul des dégâts
+        let multiplicator = 1
+        let chanceOfCritical = Math.floor(Math.random() * 100);
+        if (chanceOfCritical <= this.critical) {
+            multiplicator = 2
+            console.log("Coup critique naturel !", chanceOfCritical, "/", this.critical)
+        } else if (this.isCritical === true) {
+            let chanceOfCriticalWithWeapon = Math.floor(Math.random() * 2);
+            if (chanceOfCriticalWithWeapon === 0) {
+                multiplicator = 3
+                console.log("C'est un coup critique !!!!")
+            }
+        } else {
+            console.log("C'est un coup normal !", chanceOfCritical, "/", this.critical)
+        }
+
+        console.log("Pour le joueur", this.classAttribute, "les effets :", this.effects)
+        // On gère ici l'effet de sommeil
+        if (this.effects.sleeping !== null) {
+            if (this.effects.sleeping.turns !== 0) {
+                this.effects.sleeping.turns -= 1
+                return 0
+            } else {
+                this.effects.sleeping = null
+            }
+        }
+
+        // On gère ici l'effet de brûlure
+        if (this.effects.fire !== null) {
+            if (this.effects.fire.turns !== 0) {
+                this.effects.fire.turns -= 1
+                this.PV -= 5
+                $('#currentHpJ' + this.order).text(this.PV)
+            } else {
+                this.effects.fire = null
+            }
+        }
+
+        // On gère le gain d'attaque
+        if (this.gainATQ === true) {
+            let chanceOfGain = Math.floor(Math.random() * 5)
+            console.log(chanceOfGain)
+            if (chanceOfGain === 0) {
+                multiplicator = 1.8
+                this.PV -= 20
+                console.log(this.classAttribute, "obtient un gain de puissance mais perd des Hp")
+                $('#currentHpJ' + this.order).text(this.PV)
+            } else {
+                console.log("Le gain de puissance n'a pas fonctionné !")
+            }
+        }
+
+        // Mise en place du "one shot"
+        if (this.canOneShot === true) {
+            let chanceOfOneShot = Math.floor(Math.random() * 5);
+            console.log(chanceOfOneShot)
+            if (chanceOfOneShot === 0) {
+                console.log("C'est un one-shot")
+                return -1
+            } else if (chanceOfOneShot === 3 || chanceOfOneShot === 4) {
+                console.log("C'est un suicide.", this.classAttribute, "est mort")
+                this.PV = 0
+                $('#currentHpJ' + this.order).text(this.PV)
+            }
+        }
+
+        // On fait la fonction attaque et défense
+        if (this.canDoBoth === true) {
+            let chanceOfDoingBoth = Math.floor(Math.random() * 3);
+            console.log(chanceOfDoingBoth)
+            if (chanceOfDoingBoth === 0) {
+                this.defend = true
+            }
+        }
+
+        return this.weapon.damage * multiplicator
     }
 
     /*****************/
@@ -17,79 +109,49 @@ class Character {
     /*****************/
 
     addHp(value) {
-        console.log("Le joueur", this.classAttribute, "obtient un changement de", value, "sur la statistique HP")
-        this.PV += value
+        console.log("Le joueur", this.classAttribute, "obtient un changement de", value, "sur la statistique HP");
+        this.PV += value;
         if (this.PV > this.totalPV) {
-            console.log("ATTENTION : Overheal", this.PV, ">", this.totalPV)
-            this.PV = this.totalPV
-        }
-        $('#currentHpJ' + this.order).text(this.PV)
-    }
-
-    maledictionHp(value) {
-        console.log("Le joueur", this.classAttribute, "obtient un changement de", value, "sur la statistique HP")
-        this.PV += value
-        if (this.PV > this.totalPV) {
-            console.log("ATTENTION : Overheal", this.PV, ">", this.totalPV)
-            this.PV = this.totalPV
+            console.log("ATTENTION : Overheal", this.PV, ">", this.totalPV);
+            this.PV = this.totalPV;
         }
         $('#currentHpJ' + this.order).text(this.PV)
     }
 
     criticalHit(value) {
-        let randomIndex = Math.floor(Math.random() * 2);
-        console.log(randomIndex)
-        if (randomIndex === 0) {
-            console.log("Le joueur", this.classAttribute, "obtient un Coup Critique ! Ajout de", value, "sur la statistique ATQ")
-            this.weapon.damage += value
-        }
-        $('#weaponDamageJ' + this.order).text(this.weapon.damage)
-        $('#currentHpJ' + this.order).text(this.PV)
-    }
-
-    canBeKilled(value) {
-        let randomIndex = Math.floor(Math.random() * 4);
-        if (randomIndex === 0) {
-            this.PV = value
-            console.log("Le joueur", this.classAttribute, "s'est fait tuer par la puissance de Mort-du-Loup")
-        }
-        $('#currentHpJ' + this.order).text(this.PV)
+        this.isCritical = true;
     }
 
     sleeping() {
-        let randomIndex = Math.floor(Math.random() * 100);
-        let button = $('#btn_defense')
-        if (randomIndex < 43) {
-            console.log("Le joueur ennemi s'endort")
-            button.style.visibility = "hidden"
-
-        }
+        this.sendSleep = true;
     }
 
-    moreAtq(value) {
-        let randomIndex = Math.floor(Math.random() * 3);
-        console.log(randomIndex)
-        if (randomIndex === 0) {
-            console.log("Le joueur", this.classAttribute, "sacrifie une partie de ses HP pour gagner en attaque !")
-            this.PV -= value
-            this.weapon.damage = (this.weapon.damage * 2.5)
-        }
-        $('#weaponDamageJ' + this.order).text(this.weapon.damage)
-        $('#currentHpJ' + this.order).text(this.PV)
+    fire() {
+        this.sendFire = true;
+    }
+
+    moreAtq() {
+        this.gainATQ = true;
     }
 
     oneShot(value) {
-        let randomIndex = Math.floor(Math.random() * 2);
-        console.log("value:", value, "damage:", this.weapon.damage)
-        if (randomIndex === 0) {
-            this.weapon.damage += value
-            console.log("Le joueur", this.classAttribute, "obtient la toute puissance du Fléau du Dragon")
-        }
-        $('#weaponDamageJ' + this.order).text(this.weapon.damage)
+        this.canOneShot = true;
+    }
+
+    defendAndAttack() {
+        this.canDoBoth = true;
     }
 
     /***************************************/
 
+
+    /*****************/
+    /*  Bonus Armes  */
+    /*****************/
+
+
+
+    /***************************************/
     setOrder(order) {
         this.order = order
         $('#nameJ' + order).text(this.classAttribute)
@@ -98,30 +160,84 @@ class Character {
         $('#totalHpJ' + order).text(this.PV)
     }
 
-    loseHp(value) {
-        // On lance les effets d'avant combat ici
-        if (this.weapon.hasBegginingEffect()) {
-            console.log("Effet lancé au début du tour")
-            this.weapon.doEffect()
+    loseHp(value, effects) {
+        console.log("Effets avant combat de ", this.classAttribute, ":", this.effects)
+        console.log("Effet reçu de l'adversaire :", effects)
+        // On se sert dans les effets !
+        if (effects !== null) {
+            let typeOfEffect = effects.type
+            this.effects[typeOfEffect] = effects[typeOfEffect]
+            console.log("Après modification pour", this.classAttribute, ":", this.effects)
         }
-        if (this.defend === true) { //si il est en position défense
-            value = value / 2;
-            this.PV -= value
-            this.defend = false
-        }
-        else {
-            this.PV -= value // si il est en position attaque
-        }
-        if (this.PV < 0) {
-            this.PV = 0
-        }
-        $('#currentHpJ' + this.order).text(this.PV)
-        // On lance les effets d'après combat ici
-        if (this.weapon.hasEndingEffect()) {
-            console.log("Effet lancé au fin du tour")
-            this.weapon.doEffect()
+
+        // On vérifie qu'on se fait pas "one-shot"
+        if (value === -1) {
+            console.log(this.classAttribute, "s'est fait one-shot")
+            this.PV = 0;
+            $('#currentHpJ' + this.order).text(this.PV)
+        } else {
+            // On lance les effets d'avant combat ici
+            if (this.weapon.hasBegginingEffect()) {
+                console.log("Effet lancé au début du tour")
+                this.weapon.doEffect()
+            }
+            if (this.defend === true) { //si il est en position défense
+                value = value / 2;
+                this.PV -= value
+                this.defend = false
+            } else {
+                this.PV -= value // si il est en position attaque
+            }
+            if (this.PV < 0) {
+                this.PV = 0
+            }
+            $('#currentHpJ' + this.order).text(this.PV)
+            // On lance les effets d'après combat ici
+            if (this.weapon.hasEndingEffect()) {
+                console.log("Effet lancé au fin du tour")
+                this.weapon.doEffect()
+            }
         }
     }
+
+    sendEffects() {
+        // On voit si on doit envoyer la fatigue
+        if (this.sendSleep === true) {
+            let chanceOfSleeping = Math.floor(Math.random() * 4);
+            console.log("Chance d'endormir :", chanceOfSleeping)
+            if (chanceOfSleeping == 0) {
+                console.log(this.classAttribute, "endors l'adversaire !")
+                return {
+                    "type": "sleeping",
+                    "sleeping": {
+                        "turns": 2
+                    },
+                }
+            } else {
+                console.log("Le sort a raté, l'endormissement n'est pas envoyé !")
+                return null
+            }
+        }
+        // On voit si on doit envoyer la brûlure
+        if (this.sendFire === true) {
+            let chanceOfBurning = Math.floor(Math.random() * 6);
+            console.log("Chance de brûler :", chanceOfBurning)
+            if (chanceOfBurning == 0) {
+                console.log(this.classAttribute, "brûle l'adversaire !")
+                return {
+                    "type": "fire",
+                    "fire": {
+                        "turns": 3
+                    },
+                }
+            } else {
+                console.log("Le sort a raté, la brûlure n'est pas envoyée !")
+                return null
+            }
+        }
+        return null
+    }
+
 
     setDefenseMode() {
         this.defend = true;
@@ -132,34 +248,45 @@ class Character {
     }
 
     // fait apparaître les joueurs //
-    spotPlayer() {
+    spotPlayer(otherPlayer) {
         for (let p = 0; p < 1; p++) {
-            let random = Math.floor(Math.random() * 100);
-            let littleBox = $("#" + random);
+            let random1 = Math.floor(Math.random() * 100);
+            let random2 = Math.floor(Math.random() * 100);
+            let littleBox = $("#" + random1);
+            while (random1 === random2 || random1 === random2 - 1 || random1 === random2 + 1 || random1 === random2 - 10 || random1 === random2 + 10) {
+                random2 = Math.floor(Math.random() * 10);
+            }
+            let littleBox2 = $('#' + random2);
 
-            if (
-                littleBox.hasClass("casePlayer") || littleBox.hasClass("caseObstacle")) {
+            if (littleBox.hasClass("casePlayer") || littleBox.hasClass("caseObstacle") || littleBox2.hasClass("casePlayer") || littleBox2.hasClass("caseObstacle")) {
                 p--;
             } else {
                 littleBox.addClass("casePlayer");
                 littleBox.addClass(this.classAttribute);
-                this.position = random;
+                littleBox2.addClass("casePlayer")
+                littleBox2.addClass(otherPlayer.classAttribute);
+                this.position = random1;
+                otherPlayer.position = random2;
             }
         }
     }
 
-    // pour que les joueurs n'apparaissent pas à côté //
-    notAround(otherPlayer) {
-        let players = $('.casePlayer')
-        let otherPosition = otherPlayer.position
-        let actualPosition = this.position
-        let coordinatesToCheck = [actualPosition + 1, actualPosition - 1, actualPosition + 10, actualPosition - 10]
-        if (coordinatesToCheck.includes(otherPosition)) {
-            players.removeClass('.casePlayer')
-            players.removeClass(this.classAttribute)
-            this.spotPlayer()
-        }
-    }
+    // // pour que les joueurs n'apparaissent pas à côté //
+    // notAround(otherPlayer) {
+    //     let players = $('.casePlayer')
+    //     let otherPosition = otherPlayer.position // position du joueur 2
+    //     let actualPosition = this.position // position du joueur 1
+    //     let coordinatesToCheck = [actualPosition + 1, actualPosition - 1, actualPosition + 10, actualPosition - 10]
+    //     console.log("position J1 :", actualPosition, ". Position J2 :", otherPosition)
+    //     console.log("Joueur 1 : ", this.classAttribute, ". Joueur 2 : ", otherPlayer.classAttribute)
+    //     if (coordinatesToCheck.includes(otherPosition)) {
+    //         console.log("les deux persos sont à côté, on change")
+    //         players.removeClass('casePlayer')
+    //         players.removeClass(this.classAttribute)
+    //         this.spotPlayer()
+    //     }
+
+    // }
 
     setPlayerPosition(positionCase) {
         let newPosition = $("#" + positionCase);
@@ -311,9 +438,6 @@ class Character {
         let otherPosition = otherPlayer.position
         let actualPosition = this.position
         let coordinatesToCheck = [actualPosition + 1, actualPosition - 1, actualPosition + 10, actualPosition - 10]
-        if (coordinatesToCheck.includes(otherPosition)) {
-            return false
-        }
-        return true
+        return !coordinatesToCheck.includes(otherPosition);
     }
 }

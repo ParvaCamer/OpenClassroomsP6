@@ -1,70 +1,117 @@
 class Weapon {
-    constructor(name, classAttribute, damage, srcImg, effect = null) {
+    constructor(name, classAttribute, damage, srcImg, effect = null, bonusWeapon) {
         this.character = null
         this.name = name
         this.classAttribute = classAttribute;
         this.srcImg = srcImg
         this.damage = damage
-        this.beginingDamage = damage
         this.position = -1
         this.effect = effect
         this.effects = {
             addHp: {
                 isBegginingTurn: true,
                 isEndingTurn: false,
+                allFightingEffect: false,
                 stat: "PV",
                 changement: 10
             },
-            maledictionHp: {
-                isBegginingTurn: false,
-                isEndingTurn: true,
-                stat: "PV",
-                changement: -50
-            },
             criticalHit: {
-                isBegginingTurn: true,
+                isBegginingTurn: false,
                 isEndingTurn: false,
+                allFightingEffect: true,
                 stat: "damage",
                 changement: 14
             },
             canBeKilled: {
                 isBegginingTurn: true,
                 isEndingTurn: false,
+                allFightingEffect: false,
                 stat: "PV",
                 changement: 0
             },
             sleeping: {
-                isBegginingTurn: true,
+                isBegginingTurn: false,
                 isEndingTurn: false,
+                allFightingEffect: true,
                 stat: "damage",
                 changement: 0
             },
-            oneShot: {
-                isBegginingTurn: true,
+            fire: {
+                isBegginingTurn: false,
                 isEndingTurn: false,
+                allFightingEffect: true,
                 stat: "damage",
-                changement: 9986
+                changement: 5
+            },
+            oneShot: {
+                isBegginingTurn: false,
+                isEndingTurn: false,
+                allFightingEffect: true,
+                stat: null,
+                changement: null
             },
             moreAtq: {
-                isBegginingTurn: true,
+                isBegginingTurn: false,
                 isEndingTurn: false,
+                allFightingEffect: true,
                 stat: "PV",
                 changement: 20
+            },
+            defendAndAttack: {
+                isBegginingTurn: false,
+                isEndingTurn: false,
+                allFightingEffect: true,
+                stat: "PV",
+                changement: null
+            }
+        }
+        this.bonusWeapon = bonusWeapon;
+        this.bonus = {
+            oneHandedSword: {
+                upDamage: true
+            },
+            twoHandedSword: {
+                upDamage: true
+            },
+            spear: {
+                upDamage: true
             }
         }
     }
 
+    powerUp() {
+        return this.bonus[this.bonusWeapon].upDamage
+    }
+
+    hasAllFightingEffect() {
+        if (this.effect !== null) {
+            return this.effects[this.effect].allFightingEffect
+        } else {
+            return false
+        }
+    }
+
     hasBegginingEffect() {
-        return this.effects[this.effect].isBegginingTurn
+        if (this.effect !== null) {
+            return this.effects[this.effect].isBegginingTurn
+        } else {
+            return false
+        }
     }
 
     hasEndingEffect() {
-        return this.effects[this.effect].isEndingTurn
+        if (this.effect !== null) {
+            return this.effects[this.effect].isEndingTurn
+        } else {
+            return false
+        }
     }
 
     doEffect() {
-        let effect = this.effects[this.effect]
-        this.character[this.effect](effect.changement)
+        if (this.effect !== null) {
+            let effect = this.effects[this.effect]
+            this.character[this.effect](effect.changement)
+        }
     }
 
     spotWeapons() {

@@ -62,29 +62,30 @@ table {
   border: solid 2px;
 }
 .Jean {
-  /* background-image: url(""); */
+  background-image: url("https://www.nautiljon.com/images/jeuxvideo_persos/00/78/jean_4587.jpg") !important;
   background-size: cover;
   border: solid 2px;
 }
 .Chongyun {
-  /* background-image: url(""); */
+  background-image: url("https://static.zerochan.net/Chongyun.full.3154172.png") !important;
   background-size: cover;
   border: solid 2px;
 }
 .Xiangling {
-  /* background-image: url(""); */
+  background-image: url("https://i.pinimg.com/originals/9f/89/bd/9f89bd7613917f4eb67704d3b929f1f2.jpg") !important;
   background-size: cover;
   border: solid 2px;
 }
-.Parva {
-  /* background-image: url(""); */
+.Albedo {
+  background-image: url("https://static.zerochan.net/Albedo.%28Genshin.Impact%29.full.3154780.jpg") !important;
   background-size: cover;
   border: solid 2px;
 }
 /***** ******/
 /*  Weapons */
 /***** ******/
-.ÉpéeDeNoob, .ÉpéeDeNoob1 {
+.ÉpéeDeNoob,
+.ÉpéeDeNoob1 {
   background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB2zBPsUQYOlaIIhsDlZuSA325N9LfNUHD_g&usqp=CAU");
   background-size: cover;
   border: solid 2px;

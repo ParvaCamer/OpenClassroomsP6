@@ -1,29 +1,27 @@
 let myBoard = new board(10, 10, 10);
 myBoard.drawBoard();
 
-let Diluc = new Character("Diluc", 200, "images/perso1.png");
-let Childe = new Character("Childe", 180, "images/perso2.png");
-let Razor = new Character("Razor", 192, "images/perso3.png");
-let Jean = new Character("Jean", 170);
-let Chongyun = new Character("Chongyun", 166);
-let Xiangling = new Character("Xiangling", 176);
-let Parva = new Character("Parva", 160);
+let Diluc = new Character("Diluc", 200, "images/perso1.png", 10);
+let Childe = new Character("Childe", 180, "images/perso2.png", 16);
+let Razor = new Character("Razor", 192, "images/perso3.png", 13);
+let Jean = new Character("Jean", 170, "images/perso4.png", 21);
+let Chongyun = new Character("Chongyun", 166, "images/perso5.png", 23);
+let Xiangling = new Character("Xiangling", 176, "images/perso6.png", 18);
+let Albedo = new Character("Albedo", 160, "images/perso7.png", 25);
 
-let playerOnBoard = [Diluc, Childe]
+let playerOnBoard = [Chongyun, Albedo]
 
-playerOnBoard[0].spotPlayer();
-playerOnBoard[1].spotPlayer();
-playerOnBoard[0].notAround(playerOnBoard[1]);
+playerOnBoard[0].spotPlayer(playerOnBoard[1]);
 
-let weapon = new Weapon("Épée de vagabond", "ÉpéeDeNoob1", 10, "images/arme1.png", "addHp");
-let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob", 10, "images/arme1.png", "addHp");
-let weapon1 = new Weapon("Ombre immaculée", "Ombre", 36, "images/arme2.png", "addHp");
-let weapon2 = new Weapon("Épée du faucon", "Faucon", 28, "images/arme3.png", "criticalHit");
-let weapon3 = new Weapon("Lance de jade ailée", "JadeAilée", 30, "images/arme4.png", "moreAtq");
-let weapon4 = new Weapon("Fléau du dragon", "Dragon", 14, "images/arme5.png", "oneShot");
-let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur", 24, "images/arme6.png", "addHp"); //garder addHp
-let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup", 50, "images/arme7.png", "canBeKilled");
-let weapon7 = new Weapon("La Flûte", "Flûte", 18, "images/arme8.png", "sleeping");
+let weapon = new Weapon("Épée de vagabond", "ÉpéeDeNoob1", 10, "images/arme1.png");
+let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob", 10, "images/arme1.png");
+let weapon1 = new Weapon("Ombre immaculée", "Ombre", 28, "images/arme2.png", "addHp", "twoHandedSword");
+let weapon2 = new Weapon("Épée du faucon", "Faucon", 20, "images/arme3.png", "criticalHit", "oneHandedSword");
+let weapon3 = new Weapon("Lance de jade ailée", "JadeAilée", 30, "images/arme4.png", "moreAtq", "spear");
+let weapon4 = new Weapon("Fléau du dragon", "Dragon", 18, "images/arme5.png", "fire", "spear");
+let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur", 24, "images/arme6.png", "defendAndAttack", "spear");
+let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup", 44, "images/arme7.png", "oneShot", "twoHandedSword");
+let weapon7 = new Weapon("La Flûte", "Flûte", 20, "images/arme8.png", "sleeping", "oneHandedSword");
 
 // affichage des armes aléatoires sur le board //
 let allWeapons = [
@@ -54,7 +52,7 @@ randomWeapon(3);
 async function letsGo() {
   weaponOnBoard.push(weapon)
   weaponOnBoard.push(weapon0)
-  let playersWhoPlay = [Diluc, Childe];
+  let playersWhoPlay = [Chongyun, Albedo];
   playersWhoPlay[0].setOrder(1)
   playersWhoPlay[1].setOrder(2)
   playersWhoPlay[0].addWeapon(weapon)
