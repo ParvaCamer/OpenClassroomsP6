@@ -1,12 +1,12 @@
 class Weapon {
-    constructor(name, classAttribute, damage, srcImg, effect = null, bonusWeapon) {
-        this.character = null
-        this.name = name
+    constructor(name, classAttribute, damage, srcImg, effect = null, type) {
+        this.character = null;
+        this.name = name;
         this.classAttribute = classAttribute;
-        this.srcImg = srcImg
-        this.damage = damage
-        this.position = -1
-        this.effect = effect
+        this.srcImg = srcImg;
+        this.damage = damage;
+        this.position = -1;
+        this.effect = effect;
         this.effects = {
             addHp: {
                 isBegginingTurn: true,
@@ -64,19 +64,11 @@ class Weapon {
                 stat: "PV",
                 changement: null
             }
-        }
-        this.bonusWeapon = bonusWeapon;
-        this.bonus = {
-            oneHandedSword: {
-                upDamage: true
-            },
-            twoHandedSword: {
-                upDamage: true
-            },
-            spear: {
-                upDamage: true
-            }
-        }
+        };
+        this.type = type;
+        //oneHandedSword
+        //twoHandedSword
+        //spear
     }
 
     powerUp() {

@@ -1,17 +1,17 @@
 class fight {
 
     constructor(players) {
-        this.players = players
-        this.launchFight(players[0], players[1])
+        this.players = players;
+        this.launchFight(players[0], players[1]);
     }
 
     launchFight(playerWhoPlay, enemy) {
         $('#btn_attack').remove()
         $('#btn_defense').remove()
-        if (playerWhoPlay.weapon.hasAllFightingEffect()){
+        if (playerWhoPlay.weapon.hasAllFightingEffect()) {
             playerWhoPlay.weapon.doEffect()
         }
-        if (enemy.weapon.hasAllFightingEffect()){
+        if (enemy.weapon.hasAllFightingEffect()) {
             enemy.weapon.doEffect()
         }
 

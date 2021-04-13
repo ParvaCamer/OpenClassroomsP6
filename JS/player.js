@@ -1,5 +1,5 @@
 class Character {
-    constructor(classAttribute, PV, srcImg, critical = 10) {
+    constructor(classAttribute, PV, srcImg, critical, typeOfWeapon, percentBoost, bonusHp) {
         this.classAttribute = classAttribute;
         this.PV = PV;
         this.totalPV = PV;
@@ -20,21 +20,27 @@ class Character {
             "sleeping": null,
             "heal": null,
             "fire": null
-        }
+        };
+        this.typeOfWeapon = typeOfWeapon;
+        this.hasBestWeaponToWear = false;
+        this.percentBoost = percentBoost;
+        this.bonusHp = bonusHp;
+        this.hasAlreadyBonus = false;
     }
 
     getDamages() {
+
 
         // Calcul des dégâts
         let multiplicator = 1
         let chanceOfCritical = Math.floor(Math.random() * 100);
         if (chanceOfCritical <= this.critical) {
-            multiplicator = 2
+            multiplicator = 1.5
             console.log("Coup critique naturel !", chanceOfCritical, "/", this.critical)
         } else if (this.isCritical === true) {
             let chanceOfCriticalWithWeapon = Math.floor(Math.random() * 2);
             if (chanceOfCriticalWithWeapon === 0) {
-                multiplicator = 3
+                multiplicator = 2
                 console.log("C'est un coup critique !!!!")
             }
         } else {
@@ -100,7 +106,17 @@ class Character {
             }
         }
 
-        return this.weapon.damage * multiplicator
+        // Ici on calcule les dégâts de l'arme lorsqu'ils sont optimisés par le personnage
+        // qui possède bien la comp passive pour booster ses dégâts
+        let weaponDamages = this.weapon.damage
+        if (this.hasBestWeaponToWear === true) {
+            console.log("Le personnage a son arme de prédilection !!!!")
+            console.log("Les dommages avant :", weaponDamages)
+            weaponDamages = weaponDamages + Math.round(weaponDamages * this.percentBoost / 100)
+            console.log("Les dommages après :", weaponDamages)
+        }
+
+        return weaponDamages * multiplicator
     }
 
     /*****************/
@@ -144,14 +160,6 @@ class Character {
 
     /***************************************/
 
-
-    /*****************/
-    /*  Bonus Armes  */
-    /*****************/
-
-
-
-    /***************************************/
     setOrder(order) {
         this.order = order
         $('#nameJ' + order).text(this.classAttribute)
@@ -183,10 +191,10 @@ class Character {
             }
             if (this.defend === true) { //si il est en position défense
                 value = value / 2;
-                this.PV -= value
+                this.PV -= Math.round(value)
                 this.defend = false
             } else {
-                this.PV -= value // si il est en position attaque
+                this.PV -= Math.round(value) // si il est en position attaque
             }
             if (this.PV < 0) {
                 this.PV = 0
@@ -270,23 +278,6 @@ class Character {
             }
         }
     }
-
-    // // pour que les joueurs n'apparaissent pas à côté //
-    // notAround(otherPlayer) {
-    //     let players = $('.casePlayer')
-    //     let otherPosition = otherPlayer.position // position du joueur 2
-    //     let actualPosition = this.position // position du joueur 1
-    //     let coordinatesToCheck = [actualPosition + 1, actualPosition - 1, actualPosition + 10, actualPosition - 10]
-    //     console.log("position J1 :", actualPosition, ". Position J2 :", otherPosition)
-    //     console.log("Joueur 1 : ", this.classAttribute, ". Joueur 2 : ", otherPlayer.classAttribute)
-    //     if (coordinatesToCheck.includes(otherPosition)) {
-    //         console.log("les deux persos sont à côté, on change")
-    //         players.removeClass('casePlayer')
-    //         players.removeClass(this.classAttribute)
-    //         this.spotPlayer()
-    //     }
-
-    // }
 
     setPlayerPosition(positionCase) {
         let newPosition = $("#" + positionCase);
@@ -415,6 +406,29 @@ class Character {
                     weapon.position = that.position
                 }
             });
+            // On vérifie si c'est son arme de prédilection !
+            if (theWeapon.type === this.typeOfWeapon) {
+                this.hasBestWeaponToWear = true
+            } else {
+                this.hasBestWeaponToWear = false
+            }
+
+            // On ajoute le bonus Hp si c'est la bonne arme
+            if (this.hasBestWeaponToWear === true && this.hasAlreadyBonus === false) {
+                this.PV += this.bonusHp
+                this.totalPV = this.PV
+                $('#currentHpJ' + this.order).text(this.PV)
+                $('#totalHpJ' + this.order).text(this.totalPV)
+                this.critical = Math.round(this.critical * 1.5)
+                this.hasAlreadyBonus = true
+            } else if (this.hasBestWeaponToWear === false && this.hasAlreadyBonus === true) {
+                this.PV -= this.bonusHp
+                this.totalPV = this.PV
+                $('#currentHpJ' + this.order).text(this.PV)
+                $('#totalHpJ' + this.order).text(this.totalPV)
+                this.critical = Math.round(this.critical / 1.5)
+                this.hasAlreadyBonus = false
+            }
             this.switchWeapon(weaponCase, theWeapon);
         }
     }
@@ -434,6 +448,7 @@ class Character {
         $('#imgWeaponJ' + this.order).attr("src", weapon.srcImg)
     }
 
+    // Pour le lancement du combat
     isFrontOfPlayer(otherPlayer) {
         let otherPosition = otherPlayer.position
         let actualPosition = this.position

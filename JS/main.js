@@ -1,27 +1,27 @@
 let myBoard = new board(10, 10, 10);
 myBoard.drawBoard();
 
-let Diluc = new Character("Diluc", 200, "images/perso1.png", 10);
-let Childe = new Character("Childe", 180, "images/perso2.png", 16);
-let Razor = new Character("Razor", 192, "images/perso3.png", 13);
-let Jean = new Character("Jean", 170, "images/perso4.png", 21);
-let Chongyun = new Character("Chongyun", 166, "images/perso5.png", 23);
-let Xiangling = new Character("Xiangling", 176, "images/perso6.png", 18);
-let Albedo = new Character("Albedo", 160, "images/perso7.png", 25);
+let Diluc = new Character("Diluc", 200, "images/perso1.png", 10, "twoHandedSword", 6, 35);
+let Childe = new Character("Childe", 180, "images/perso2.png", 16, "spear", 12, 45);
+let Razor = new Character("Razor", 192, "images/perso3.png", 13, "twoHandedSword", 9, 38);
+let Jean = new Character("Jean", 170, "images/perso4.png", 21, "oneHandedSword", 16, 50);
+let Chongyun = new Character("Chongyun", 166, "images/perso5.png", 23, "twoHandedSword", 17, 55);
+let Xiangling = new Character("Xiangling", 176, "images/perso6.png", 18, "spear", 14, 47);
+let Albedo = new Character("Albedo", 160, "images/perso7.png", 25, "oneHandedSword", 20, 60);
 
 let playerOnBoard = [Chongyun, Albedo]
 
 playerOnBoard[0].spotPlayer(playerOnBoard[1]);
 
-let weapon = new Weapon("Épée de vagabond", "ÉpéeDeNoob1", 10, "images/arme1.png");
-let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob", 10, "images/arme1.png");
-let weapon1 = new Weapon("Ombre immaculée", "Ombre", 28, "images/arme2.png", "addHp", "twoHandedSword");
+let weapon = new Weapon("Épée de vagabond", "ÉpéeDeNoob1", 10, "images/arme1.png", null, "oneHandedSword");
+let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob", 10, "images/arme1.png", null, "oneHandedSword");
+let weapon1 = new Weapon("Ombre immaculée", "Ombre", 25, "images/arme2.png", "addHp", "twoHandedSword");
 let weapon2 = new Weapon("Épée du faucon", "Faucon", 20, "images/arme3.png", "criticalHit", "oneHandedSword");
-let weapon3 = new Weapon("Lance de jade ailée", "JadeAilée", 30, "images/arme4.png", "moreAtq", "spear");
+let weapon3 = new Weapon("Lance de jade ailée", "JadeAilée", 31, "images/arme4.png", "moreAtq", "spear");
 let weapon4 = new Weapon("Fléau du dragon", "Dragon", 18, "images/arme5.png", "fire", "spear");
-let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur", 24, "images/arme6.png", "defendAndAttack", "spear");
-let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup", 44, "images/arme7.png", "oneShot", "twoHandedSword");
-let weapon7 = new Weapon("La Flûte", "Flûte", 20, "images/arme8.png", "sleeping", "oneHandedSword");
+let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur", 23, "images/arme6.png", "defendAndAttack", "spear");
+let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup", 43, "images/arme7.png", "oneShot", "twoHandedSword");
+let weapon7 = new Weapon("La Flûte", "Flûte", 22, "images/arme8.png", "sleeping", "oneHandedSword");
 
 // affichage des armes aléatoires sur le board //
 let allWeapons = [
