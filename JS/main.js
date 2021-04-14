@@ -9,19 +9,19 @@ let Chongyun = new Character("Chongyun", 166, "images/perso5.png", 23, "twoHande
 let Xiangling = new Character("Xiangling", 176, "images/perso6.png", 18, "spear", 14, 47);
 let Albedo = new Character("Albedo", 160, "images/perso7.png", 25, "oneHandedSword", 20, 60);
 
-let playerOnBoard = [Chongyun, Albedo]
+let playerOnBoard = [Xiangling, Albedo]
 
 playerOnBoard[0].spotPlayer(playerOnBoard[1]);
 
-let weapon = new Weapon("Épée de vagabond", "ÉpéeDeNoob1", 10, "images/arme1.png", null, "oneHandedSword");
-let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob", 10, "images/arme1.png", null, "oneHandedSword");
-let weapon1 = new Weapon("Ombre immaculée", "Ombre", 25, "images/arme2.png", "addHp", "twoHandedSword");
-let weapon2 = new Weapon("Épée du faucon", "Faucon", 20, "images/arme3.png", "criticalHit", "oneHandedSword");
-let weapon3 = new Weapon("Lance de jade ailée", "JadeAilée", 31, "images/arme4.png", "moreAtq", "spear");
-let weapon4 = new Weapon("Fléau du dragon", "Dragon", 18, "images/arme5.png", "fire", "spear");
-let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur", 23, "images/arme6.png", "defendAndAttack", "spear");
-let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup", 43, "images/arme7.png", "oneShot", "twoHandedSword");
-let weapon7 = new Weapon("La Flûte", "Flûte", 22, "images/arme8.png", "sleeping", "oneHandedSword");
+let weapon = new Weapon("Épée de vagabond", "ÉpéeDeNoob1", 10, "images/arme1.png", null, "oneHandedSword", "Aucun");
+let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob", 10, "images/arme1.png", null, "oneHandedSword", "Aucun");
+let weapon1 = new Weapon("Ombre immaculée", "Ombre", 25, "images/arme2.png", "addHp", "twoHandedSword", "Ajout d'hp");
+let weapon2 = new Weapon("Épée du faucon", "Faucon", 20, "images/arme3.png", "criticalHit", "oneHandedSword", "Coup critique");
+let weapon3 = new Weapon("Lance de jade ailée", "JadeAilée", 31, "images/arme4.png", "moreAtq", "spear", "Attaque+");
+let weapon4 = new Weapon("Fléau du dragon", "Dragon", 18, "images/arme5.png", "fire", "spear", "Embrasement");
+let weapon5 = new Weapon("Lance de la voûte d'Azur", "VoûteAzur", 23, "images/arme6.png", "defendAndAttack", "spear", "ATQ & DEF");
+let weapon6 = new Weapon("Mort-du-loup", "MortDuLoup", 43, "images/arme7.png", "oneShot", "twoHandedSword", "Pile ou face");
+let weapon7 = new Weapon("La Flûte", "Flûte", 22, "images/arme8.png", "sleeping", "oneHandedSword", "Sommeil");
 
 // affichage des armes aléatoires sur le board //
 let allWeapons = [
@@ -52,7 +52,7 @@ randomWeapon(3);
 async function letsGo() {
   weaponOnBoard.push(weapon)
   weaponOnBoard.push(weapon0)
-  let playersWhoPlay = [Chongyun, Albedo];
+  let playersWhoPlay = [Xiangling, Albedo];
   playersWhoPlay[0].setOrder(1)
   playersWhoPlay[1].setOrder(2)
   playersWhoPlay[0].addWeapon(weapon)

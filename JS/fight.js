@@ -19,8 +19,8 @@ class fight {
             let $btn_attack = $('<button class="button1" id="btn_attack"> Attaquer </button>')
             let $btn_defense = $('<button class ="button2" id="btn_defense"> Défendre </button>')
 
-            $('#weaponDamageJ' + playerWhoPlay.order).append($btn_attack)
-            $('#weaponDamageJ' + playerWhoPlay.order).append($btn_defense)
+            $('#place_btn' + playerWhoPlay.order).append($btn_attack)
+            $('#place_btn' + playerWhoPlay.order).append($btn_defense)
             let that = this
             let defense = $('#btn_defense').on("click", function () {
                 playerWhoPlay.setDefenseMode()
@@ -30,6 +30,7 @@ class fight {
             let attack = $('#btn_attack').on("click", function () {
                 enemy.loseHp(playerWhoPlay.getDamages(), playerWhoPlay.sendEffects())
                 this.removeEventListener("click", attack);
+                $('#healthJ' + enemy.order).animate({ "value": enemy.PV }, 800, "swing")
                 that.launchFight(enemy, playerWhoPlay)
             })
         } else {

@@ -1,5 +1,5 @@
 class Weapon {
-    constructor(name, classAttribute, damage, srcImg, effect = null, type) {
+    constructor(name, classAttribute, damage, srcImg, effect = null, type, description = null) {
         this.character = null;
         this.name = name;
         this.classAttribute = classAttribute;
@@ -66,9 +66,7 @@ class Weapon {
             }
         };
         this.type = type;
-        //oneHandedSword
-        //twoHandedSword
-        //spear
+        this.description = description
     }
 
     powerUp() {

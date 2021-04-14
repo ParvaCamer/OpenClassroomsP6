@@ -166,6 +166,7 @@ class Character {
         $('#imgPlayerJ' + order).attr("src", this.srcImg)
         $('#currentHpJ' + order).text(this.PV)
         $('#totalHpJ' + order).text(this.PV)
+        $('#criticalStrikeJ' + order).text(this.critical)
     }
 
     loseHp(value, effects) {
@@ -420,6 +421,8 @@ class Character {
                 $('#currentHpJ' + this.order).text(this.PV)
                 $('#totalHpJ' + this.order).text(this.totalPV)
                 this.critical = Math.round(this.critical * 1.5)
+                $('#criticalStrikeJ' + this.order).text(this.critical)
+                $('#awakeJ' + this.order).text(this.weapon.description)
                 this.hasAlreadyBonus = true
             } else if (this.hasBestWeaponToWear === false && this.hasAlreadyBonus === true) {
                 this.PV -= this.bonusHp
@@ -427,6 +430,8 @@ class Character {
                 $('#currentHpJ' + this.order).text(this.PV)
                 $('#totalHpJ' + this.order).text(this.totalPV)
                 this.critical = Math.round(this.critical / 1.5)
+                $('#criticalStrikeJ' + this.order).text(this.critical)
+                $('#awakeJ' + this.order).text(this.weapon.description)
                 this.hasAlreadyBonus = false
             }
             this.switchWeapon(weaponCase, theWeapon);
@@ -446,6 +451,7 @@ class Character {
         $('#weaponDamageJ' + this.order).text(weapon.damage)
         $('#weaponNameJ' + this.order).text(weapon.name)
         $('#imgWeaponJ' + this.order).attr("src", weapon.srcImg)
+        $('#awakeJ' + this.order).text(weapon.description)
     }
 
     // Pour le lancement du combat
