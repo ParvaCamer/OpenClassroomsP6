@@ -15,7 +15,7 @@
 <div id='interface'>
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-6">
                 <div id='interfaceP1'>
                     <h4 class='nom'>Joueur 1 : <span id="nameJ1"></span></h4>
                     <img id="imgPlayerJ1" src="" alt =""><br />
@@ -28,23 +28,31 @@
                     <p id="place_btn1"></p>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-6">
                 <div id='interfaceP2'>
                     <h4 class='nom'>Joueur 2 : <span id="nameJ2"></span></h4>
                     <img id="imgPlayerJ2" src="" alt =""><br />
                     <p id="HpJ2"><span id="currentHpJ2"></span>/ <span id="totalHpJ2"></span> hp</p>
-                    <img id="imgWeaponJ2" src="" alt="">
-                    <p>Nom : <br /><span id="weaponNameJ2"></span></p>
-                    <p>Dégâts : <span id="weaponDamageJ2"></span></p> <br />
-                    <p id="CCJ2">CC : <span id="criticalStrikeJ2"></span></p> <br />
-                    <p id="enchantmentJ2">Enchantement : <span id="awakeJ2"></span></p>
+                    <div id="positionWeapon">
+                        <img id="imgWeaponJ2" src="" alt="">
+                        <p>Nom : <br /><span id="weaponNameJ2"></span></p>
+                        <p>Dégâts : <span id="weaponDamageJ2"></span></p> <br />
+                        <p id="CCJ2">CC : <span id="criticalStrikeJ2"></span></p> <br />
+                        <p id="enchantmentJ2">Enchantement : <span id="awakeJ2"></span></p>
+                    </div>
+
                     <p id="place_btn2"></p>
                 </div>
             </div>
         </div>
-        <div id="textSpot">
-                    <textarea id="texte" rows="7" cols="72"></textarea>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div id="textSpot">
+                    <input type="text" name="" id="texte" placeholder="" size="150" maxlength="400">
+                </div>  
+            </div>
         </div>
+
     </div>
 </div>
 

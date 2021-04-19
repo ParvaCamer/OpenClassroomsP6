@@ -180,10 +180,8 @@ h4 {
   margin-top: -30px;
   margin-left: 5px;
 }
-#texte {
-  margin-top: 10px;
-  border: solid 2px black;
-}
 #textSpot {
-  text-align: center;
+  text-align: left;
+  border: solid 2px black;
+  margin-top: 10px;
 }

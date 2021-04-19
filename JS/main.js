@@ -48,6 +48,8 @@ function randomWeapon(nbOfWeapon) {
 }
 
 randomWeapon(3);
+// let info = $('<p></p>').text("- Invocation de " + playerOnBoard[0].classAttribute + ". Armes favorites : " + playerOnBoard[0].typeOfWeapon)
+// $('textSpot').append(info)
 document.getElementById("texte").innerHTML += "- Invocation de " + playerOnBoard[0].classAttribute + ". Armes favorites : " + playerOnBoard[0].typeOfWeapon + "\n";
 document.getElementById("texte").innerHTML += "- Invocation de " + playerOnBoard[1].classAttribute + ". Armes favorites : " + playerOnBoard[1].typeOfWeapon + "\n";
 document.getElementById("texte").innerHTML += "- Les armes : " + weaponOnBoard[0].name + " / " + weaponOnBoard[1].name + " / " + weaponOnBoard[2].name + ", sont sur le terrain." + "\n";
