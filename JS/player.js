@@ -424,6 +424,7 @@ class Character {
                 $('#criticalStrikeJ' + this.order).text(this.critical)
                 $('#awakeJ' + this.order).text(this.weapon.description)
                 this.hasAlreadyBonus = true
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " a ramassé une arme favorite. " + this.classAttribute + " obtient un bonus de " + this.bonusHp + " Hp et de " + this.percentBoost + " Coup Critique !" + "\n";
             } else if (this.hasBestWeaponToWear === false && this.hasAlreadyBonus === true) {
                 this.PV -= this.bonusHp
                 this.totalPV = this.PV
@@ -433,6 +434,7 @@ class Character {
                 $('#criticalStrikeJ' + this.order).text(this.critical)
                 $('#awakeJ' + this.order).text(this.weapon.description)
                 this.hasAlreadyBonus = false
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " a perdu son arme, les bonus sont perdus. \n"
             }
             this.switchWeapon(weaponCase, theWeapon);
         }
