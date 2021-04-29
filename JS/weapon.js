@@ -10,56 +10,48 @@ class Weapon {
         this.effects = {
             addHp: {
                 isBegginingTurn: true,
-                isEndingTurn: false,
                 allFightingEffect: false,
                 stat: "PV",
-                changement: 10
+                changement: 20
             },
             criticalHit: {
                 isBegginingTurn: false,
-                isEndingTurn: false,
                 allFightingEffect: true,
                 stat: "damage",
                 changement: 14
             },
             canBeKilled: {
                 isBegginingTurn: true,
-                isEndingTurn: false,
                 allFightingEffect: false,
                 stat: "PV",
                 changement: 0
             },
             sleeping: {
                 isBegginingTurn: false,
-                isEndingTurn: false,
                 allFightingEffect: true,
                 stat: "damage",
                 changement: 0
             },
             fire: {
                 isBegginingTurn: false,
-                isEndingTurn: false,
                 allFightingEffect: true,
                 stat: "damage",
                 changement: 5
             },
             oneShot: {
                 isBegginingTurn: false,
-                isEndingTurn: false,
                 allFightingEffect: true,
                 stat: null,
                 changement: null
             },
             moreAtq: {
                 isBegginingTurn: false,
-                isEndingTurn: false,
                 allFightingEffect: true,
                 stat: "PV",
                 changement: 20
             },
             defendAndAttack: {
                 isBegginingTurn: false,
-                isEndingTurn: false,
                 allFightingEffect: true,
                 stat: "PV",
                 changement: null
@@ -84,14 +76,6 @@ class Weapon {
     hasBegginingEffect() {
         if (this.effect !== null) {
             return this.effects[this.effect].isBegginingTurn
-        } else {
-            return false
-        }
-    }
-
-    hasEndingEffect() {
-        if (this.effect !== null) {
-            return this.effects[this.effect].isEndingTurn
         } else {
             return false
         }

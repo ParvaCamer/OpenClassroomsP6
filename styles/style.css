@@ -1,11 +1,42 @@
 /***** ******/
 /*   Home   */
 /***** ******/
-.dilucHome {
-  width: 70%;
+.dilucHome,
+.razorHome,
+.childeHome {
+  width: 35%;
+  /* float: right; */
 }
-.razorHome {
-  width: 70%;
+.dilucHome {
+  float: right;
+  margin-left: 15px;
+  margin-top: 10px;
+}
+.jeanHome,
+.chongyunHome,
+.xianglingHome,
+.albedoHome {
+  width: 30%;
+  float: right;
+}
+.persoHome {
+  text-align: center;
+  margin-top: 15px;
+}
+.col-md-3.col-sm-6 {
+  margin-top: 40px;
+}
+.btnHome  {
+  margin-bottom: 10px;
+}
+.descriptionPerso {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  text-align: justify;
+  font-size: medium;
+}
+.carac {
+  text-align: left;
+  list-style-type: none;
 }
 /***** ******/
 /*  Board   */
@@ -180,8 +211,17 @@ h4 {
   margin-top: -30px;
   margin-left: 5px;
 }
-#textSpot {
-  text-align: left;
+#texte {
   border: solid 2px black;
   margin-top: 10px;
+  height: 175px;
+}
+#zoneDeTexte {
+  text-align: left;
+}
+#currentHpJ1,
+#totalHpJ1,
+#currentHpJ2,
+#totalHpJ2 {
+  color: rgb(5, 5, 131);
 }

@@ -1,36 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Document</title>
     <link rel="stylesheet" href="styles/style.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+      <div class="placeBtnPlay"></div>
     <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-12">
-                <h4>Diluc</h4>
-                <img src="images/diluc.jpg" class="dilucHome">
-                <input type="button" value="Personnage Diluc">
-            </div>
-            <div class="col-md-3 col-sm-12">
-                <h4>Razor</h4>
-                <img src="images/razor.jpg" class="razorHome">
-                <input type="button" value="Personnage Razor">
-            </div>
+      <div class="row">
+        <div class="col-md-5 col-sm-6">
+          <div class="persoHome">
+            <h4 class="h4home">Diluc</h4>
+            <img src="images/diluc.jpg" class="dilucHome" /><br />
+            <p class="descriptionPerso">
+                <strong><u>Histoire de Diluc </u></strong>: <br />
+              "Étant l'homme le plus riche de Mondstadt, Diluc se présente
+              toujours comme un jeune homme élégant et charmant, à l'image
+              publique parfaite. Sous ce masque se cache un guerrier à la
+              volonté de fer forgée dans les flammes qui ne recule devant rien
+              pour protéger Mondstadt. Ne comptez pas sur lui pour ménager ses
+              adversaires, il sera sans pitié jusqu'à la fin."
+            </p>
+            <ul>
+                <li class="carac">Caractéristiques :
+                    <ul>
+                        <li>Points de vie : 200</li> 
+                        <li>Pourcentage de Coup Critique : 10</li>
+                    </ul>
+                </li>
+            </ul>
+            <button class="btnHome" onclick="getID(1);">Choisir Diluc</button>
+          </div>
         </div>
+        <div class="col-md-5 col-sm-6">
+          <div class="persoHome">
+            <h4 class="h4home">Childe</h4>
+            <img src="images/childe.jpg" class="childeHome" /><br />
+            <button class="btnHome" onclick="getID(2);">Choisir Childe</button>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <div class="persoHome">
+            <h4 class="h4home">Razor</h4>
+            <img src="images/razor.jpg" class="razorHome" /><br />
+            <button class="btnHome" onclick="getID(3);">Choisir Razor</button>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="persoHome">
+            <h4 class="h4home">Jean</h4>
+            <img src="images/Jean.jpg" class="jeanHome" />
+            <button class="btnHome" onclick="getID(4);">Choisir Jean</button>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="persoHome">
+            <h4 class="h4home">Chongyun</h4>
+            <img src="images/Chongyun.jpg" class="chongyunHome" />
+            <button class="btnHome" onclick="getID(5);"> Choisir Chongyun</button>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="persoHome">
+            <h4 class="h4home">Xiangling</h4>
+            <img src="images/Xiangling.jpg" class="xianglingHome" />
+            <button class="btnHome" onclick="getID(6);">Choisir Xiangling</button>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="persoHome">
+            <h4 class="h4home">Albedo</h4>
+            <img src="images/Albedo.jpg" class="albedoHome" />
+            <button class="btnHome" onclick="getID(7);">Choisir Albedo</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script
-    src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script>
-  <script src="JS/board.js" type="text/javascript"></script>
-  <script src="JS/player.js" type="text/javascript"></script>
-  <script src="JS/weapon.js" type="text/javascript"></script>
-  <script src="JS/fight.js" type="text/javascript"></script>
-  <script src="JS/main.js" type="text/javascript"></script>
-</body>
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="JS/board.js" type="text/javascript"></script>
+    <script src="JS/player.js" type="text/javascript"></script>
+    <script src="JS/weapon.js" type="text/javascript"></script>
+    <script src="JS/fight.js" type="text/javascript"></script>
+    <script src="JS/main.js" type="text/javascript"></script>
+  </body>
 </html>

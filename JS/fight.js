@@ -30,7 +30,6 @@ class fight {
             let attack = $('#btn_attack').on("click", function () {
                 enemy.loseHp(playerWhoPlay.getDamages(), playerWhoPlay.sendEffects())
                 this.removeEventListener("click", attack);
-                $('#healthJ' + enemy.order).animate({ "value": enemy.PV }, 800, "swing")
                 that.launchFight(enemy, playerWhoPlay)
             })
         } else {

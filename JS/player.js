@@ -25,33 +25,40 @@ class Character {
         this.hasBestWeaponToWear = false;
         this.percentBoost = percentBoost;
         this.bonusHp = bonusHp;
-        this.hasAlreadyBonus = false;
+        this.hasAlreadyBonus = false; // pour le bonus Hp et CC
     }
 
     getDamages() {
-
-
         // Calcul des dégâts
         let multiplicator = 1
         let chanceOfCritical = Math.floor(Math.random() * 100);
-        if (chanceOfCritical <= this.critical) {
-            multiplicator = 1.5
-            console.log("Coup critique naturel !", chanceOfCritical, "/", this.critical)
-        } else if (this.isCritical === true) {
+
+        if (this.isCritical === true) {
+            chanceOfCritical = 100;
             let chanceOfCriticalWithWeapon = Math.floor(Math.random() * 2);
             if (chanceOfCriticalWithWeapon === 0) {
                 multiplicator = 2
-                console.log("C'est un coup critique !!!!")
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " envoie un Coup critique grâce au Faucon !! \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
             }
+        }
+        if (chanceOfCritical <= this.critical) {
+            multiplicator = 1.5
+            document.getElementById("texte").innerHTML += "- " + this.classAttribute + " frappe avec un Coup critique ! \n"
+            document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
         } else {
-            console.log("C'est un coup normal !", chanceOfCritical, "/", this.critical)
+            document.getElementById("texte").innerHTML += "- Au tour de " + this.classAttribute + " d'attaquer. C'est un coup normal. \n"
+            document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
         }
 
         console.log("Pour le joueur", this.classAttribute, "les effets :", this.effects)
+
         // On gère ici l'effet de sommeil
         if (this.effects.sleeping !== null) {
             if (this.effects.sleeping.turns !== 0) {
                 this.effects.sleeping.turns -= 1
+                document.getElementById("texte").innerHTML += "- Tour restant de l'effet sommeil : " + this.effects.sleeping.turns + ". \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
                 return 0
             } else {
                 this.effects.sleeping = null
@@ -64,6 +71,8 @@ class Character {
                 this.effects.fire.turns -= 1
                 this.PV -= 5
                 $('#currentHpJ' + this.order).text(this.PV)
+                document.getElementById("texte").innerHTML += "- Tour restant de l'effet de brûlure : " + this.effects.fire.turns + ". \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
             } else {
                 this.effects.fire = null
             }
@@ -72,26 +81,28 @@ class Character {
         // On gère le gain d'attaque
         if (this.gainATQ === true) {
             let chanceOfGain = Math.floor(Math.random() * 5)
-            console.log(chanceOfGain)
             if (chanceOfGain === 0) {
                 multiplicator = 1.8
                 this.PV -= 20
-                console.log(this.classAttribute, "obtient un gain de puissance mais perd des Hp")
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " obtient un gain de puissance mais perd des Hp. \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
                 $('#currentHpJ' + this.order).text(this.PV)
             } else {
-                console.log("Le gain de puissance n'a pas fonctionné !")
+                document.getElementById("texte").innerHTML += "- Le gain de puissance n'a pas fonctionné ! \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
             }
         }
 
         // Mise en place du "one shot"
         if (this.canOneShot === true) {
             let chanceOfOneShot = Math.floor(Math.random() * 5);
-            console.log(chanceOfOneShot)
             if (chanceOfOneShot === 0) {
-                console.log("C'est un one-shot")
+                document.getElementById("texte").innerHTML += "- C'est un one-shot ! \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
                 return -1
             } else if (chanceOfOneShot === 3 || chanceOfOneShot === 4) {
-                console.log("C'est un suicide.", this.classAttribute, "est mort")
+                document.getElementById("texte").innerHTML += "- C'est un suicide. " + this.classAttribute + " est mort. \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
                 this.PV = 0
                 $('#currentHpJ' + this.order).text(this.PV)
             }
@@ -100,9 +111,10 @@ class Character {
         // On fait la fonction attaque et défense
         if (this.canDoBoth === true) {
             let chanceOfDoingBoth = Math.floor(Math.random() * 3);
-            console.log(chanceOfDoingBoth)
             if (chanceOfDoingBoth === 0) {
                 this.defend = true
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " attaque et se met en mode défense. \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
             }
         }
 
@@ -110,10 +122,10 @@ class Character {
         // qui possède bien la comp passive pour booster ses dégâts
         let weaponDamages = this.weapon.damage
         if (this.hasBestWeaponToWear === true) {
-            console.log("Le personnage a son arme de prédilection !!!!")
-            console.log("Les dommages avant :", weaponDamages)
             weaponDamages = weaponDamages + Math.round(weaponDamages * this.percentBoost / 100)
-            console.log("Les dommages après :", weaponDamages)
+            $('#weaponDamageJ' + this.order).text(weaponDamages)
+            document.getElementById("texte").innerHTML += "- " + this.weapon.name + " éveille les dommages de son porteur. \n"
+            document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
         }
 
         return weaponDamages * multiplicator
@@ -125,13 +137,14 @@ class Character {
     /*****************/
 
     addHp(value) {
-        console.log("Le joueur", this.classAttribute, "obtient un changement de", value, "sur la statistique HP");
+        document.getElementById("texte").innerHTML += "- " + this.classAttribute + " gagne " + value + " HP. \n";
         this.PV += value;
         if (this.PV > this.totalPV) {
-            console.log("ATTENTION : Overheal", this.PV, ">", this.totalPV);
+            document.getElementById("texte").innerHTML += "- ATTENTION : Overheal " + this.PV + " > " + this.totalPV + ".\n";
             this.PV = this.totalPV;
         }
         $('#currentHpJ' + this.order).text(this.PV)
+        document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
     }
 
     criticalHit(value) {
@@ -181,7 +194,8 @@ class Character {
 
         // On vérifie qu'on se fait pas "one-shot"
         if (value === -1) {
-            console.log(this.classAttribute, "s'est fait one-shot")
+            document.getElementById("texte").innerHTML += "- " + this.classAttribute + " s'est fait one-shot. \n"
+            document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
             this.PV = 0;
             $('#currentHpJ' + this.order).text(this.PV)
         } else {
@@ -201,21 +215,15 @@ class Character {
                 this.PV = 0
             }
             $('#currentHpJ' + this.order).text(this.PV)
-            // On lance les effets d'après combat ici
-            if (this.weapon.hasEndingEffect()) {
-                console.log("Effet lancé au fin du tour")
-                this.weapon.doEffect()
-            }
         }
     }
 
     sendEffects() {
         // On voit si on doit envoyer la fatigue
         if (this.sendSleep === true) {
-            let chanceOfSleeping = Math.floor(Math.random() * 4);
-            console.log("Chance d'endormir :", chanceOfSleeping)
+            let chanceOfSleeping = Math.floor(Math.random() * 5);
             if (chanceOfSleeping == 0) {
-                console.log(this.classAttribute, "endors l'adversaire !")
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " endors l'adversaire pendant 2 tours ! \n"
                 return {
                     "type": "sleeping",
                     "sleeping": {
@@ -223,16 +231,16 @@ class Character {
                     },
                 }
             } else {
-                console.log("Le sort a raté, l'endormissement n'est pas envoyé !")
+                document.getElementById("texte").innerHTML += "- Le sort a raté, l'endormissement n'est pas envoyé ! \n"
                 return null
             }
         }
         // On voit si on doit envoyer la brûlure
         if (this.sendFire === true) {
             let chanceOfBurning = Math.floor(Math.random() * 6);
-            console.log("Chance de brûler :", chanceOfBurning)
             if (chanceOfBurning == 0) {
-                console.log(this.classAttribute, "brûle l'adversaire !")
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " brûle l'adversaire pendant 3 tours ! \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
                 return {
                     "type": "fire",
                     "fire": {
@@ -240,7 +248,8 @@ class Character {
                     },
                 }
             } else {
-                console.log("Le sort a raté, la brûlure n'est pas envoyée !")
+                document.getElementById("texte").innerHTML += "- Le sort a raté, la brûlure n'est pas envoyée ! \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
                 return null
             }
         }
@@ -424,7 +433,8 @@ class Character {
                 $('#criticalStrikeJ' + this.order).text(this.critical)
                 $('#awakeJ' + this.order).text(this.weapon.description)
                 this.hasAlreadyBonus = true
-                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " a ramassé une arme favorite. " + this.classAttribute + " obtient un bonus de " + this.bonusHp + " Hp et de " + this.percentBoost + " Coup Critique !" + "\n";
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " a ramassé une arme favorite. " + this.classAttribute + " obtient un bonus de " + this.bonusHp + " Hp et de " + this.percentBoost + " Coup Critique ! \n";
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
             } else if (this.hasBestWeaponToWear === false && this.hasAlreadyBonus === true) {
                 this.PV -= this.bonusHp
                 this.totalPV = this.PV
@@ -435,6 +445,7 @@ class Character {
                 $('#awakeJ' + this.order).text(this.weapon.description)
                 this.hasAlreadyBonus = false
                 document.getElementById("texte").innerHTML += "- " + this.classAttribute + " a perdu son arme, les bonus sont perdus. \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
             }
             this.switchWeapon(weaponCase, theWeapon);
         }
