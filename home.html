@@ -11,8 +11,9 @@
       crossorigin="anonymous"
     />
   </head>
+
   <body>
-      <div class="placeBtnPlay"></div>
+    <div class="placeBtnPlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-md-5 col-sm-6">
@@ -20,7 +21,7 @@
             <h4 class="h4home">Diluc</h4>
             <img src="images/diluc.jpg" class="dilucHome" /><br />
             <p class="descriptionPerso">
-                <strong><u>Histoire de Diluc </u></strong>: <br />
+              <strong><u>Histoire de Diluc </u></strong>: <br />
               "Étant l'homme le plus riche de Mondstadt, Diluc se présente
               toujours comme un jeune homme élégant et charmant, à l'image
               publique parfaite. Sous ce masque se cache un guerrier à la
@@ -28,57 +29,235 @@
               pour protéger Mondstadt. Ne comptez pas sur lui pour ménager ses
               adversaires, il sera sans pitié jusqu'à la fin."
             </p>
-            <ul>
-                <li class="carac">Caractéristiques :
-                    <ul>
-                        <li>Points de vie : 200</li> 
-                        <li>Pourcentage de Coup Critique : 10</li>
-                    </ul>
-                </li>
+            <ul class="carac">
+              <li>
+                <u>Caractéristiques</u> :
+                <ul>
+                  <li>Points de vie : 200</li>
+                  <li>Pourcentage de CC : 10</li>
+                  <li>Arme de prédilection : Espadon</li>
+                </ul>
+              </li>
+              <li>
+                <u>Caractéristiques avec bonus</u> :
+                <ul>
+                  <li>Points de vie : 285</li>
+                  <li>Pourcentage de CC : 16</li>
+                </ul>
+              </li>
             </ul>
-            <button class="btnHome" onclick="getID(1);">Choisir Diluc</button>
+            <button class="btnHome" onclick="getID(1);" style="margin-top: 3px">
+              Choisir Diluc
+            </button>
           </div>
         </div>
         <div class="col-md-5 col-sm-6">
           <div class="persoHome">
             <h4 class="h4home">Childe</h4>
             <img src="images/childe.jpg" class="childeHome" /><br />
-            <button class="btnHome" onclick="getID(2);">Choisir Childe</button>
+            <p class="descriptionPerso">
+              <strong><u>Histoire de Childe </u></strong>: <br />
+              "Chaleureux et amical une minute, tueur impitoyable la suivante
+              ... Sa personnalité changeante et imprévisible peut laisser son
+              entourage à court de mots pour le décrire. Mais dans de rares
+              moments privés, il se passe de titres, se débarasse de son armure
+              et des couches d'intrigues qui l'accompagnent, et montre sa vraie
+              personne à ceux qui le craignent."
+            </p>
+            <ul class="carac">
+              <li>
+                <u>Caractéristiques</u> :
+                <ul>
+                  <li>Points de vie : 180</li>
+                  <li>Pourcentage de CC : 16</li>
+                  <li>Arme de prédilection : Lance</li>
+                </ul>
+              </li>
+              <li>
+                <u>Caractéristiques avec bonus</u> :
+                <ul>
+                  <li>Points de vie : 275</li>
+                  <li>Pourcentage de CC : 28</li>
+                </ul>
+              </li>
+            </ul>
+            <button class="btnHome" onclick="getID(2);" style="margin-top: 3px">
+              Choisir Childe
+            </button>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6">
+        <div class="col-md-5 col-sm-6">
           <div class="persoHome">
             <h4 class="h4home">Razor</h4>
             <img src="images/razor.jpg" class="razorHome" /><br />
-            <button class="btnHome" onclick="getID(3);">Choisir Razor</button>
+            <p class="descriptionPerso">
+              <strong><u>Histoire de Razor </u></strong>: <br />
+              "À Mondstadt, il y a une rumeur qui court sur un jeune garçon.
+              Certains disent que c'est un enfant abandonné que les loups ont
+              adopté quand il était bébé, d'autres croient qu'il est
+              l'incarnation d'un loup ... À l'heure actuelle, Razor, doté de ses griffes acérées, court et chasse certainement
+              dans la forêt avec les loups à l'aide de son instinct et de son
+              agilité surprenante."
+            </p>
+            <ul class="carac">
+              <li>
+                <u>Caractéristiques</u> :
+                <ul>
+                  <li>Points de vie : 192</li>
+                  <li>Pourcentage de CC : 13</li>
+                  <li>Arme de prédilection : Espadon</li>
+                </ul>
+              </li>
+              <li>
+                <u>Caractéristiques avec bonus</u> :
+                <ul>
+                  <li>Points de vie : 280</li>
+                  <li>Pourcentage de CC : 22</li>
+                </ul>
+              </li>
+            </ul>
+            <button class="btnHome" onclick="getID(3);" style="margin-top: 3px">
+              Choisir Razor
+            </button>
           </div>
         </div>
-        <div class="col-md-6 col-sm-6">
+        <div class="col-md-5 col-sm-6">
           <div class="persoHome">
             <h4 class="h4home">Jean</h4>
             <img src="images/Jean.jpg" class="jeanHome" />
-            <button class="btnHome" onclick="getID(4);">Choisir Jean</button>
+            <p class="descriptionPerso">
+              <strong><u>Histoire de Jean </u></strong>: <br />
+              "Entièrement dévouée à sa fonction de grande maîtresse intérimaire
+              de l'Ordre de Favonius, Jean veille sans relâche sur Mondstadt.
+              Bien qu'elle n'était pas la plus douée de ses pairs, cette jeune
+              femme est devenue le pilier de l'Ordre grâce à son travail
+              acharné. Elle protègera Mondstadt coûte que coûte face à toutes
+              les menaces, notamment celle que représente Sotrmterror."
+            </p>
+            <ul class="carac">
+              <li>
+                <u>Caractéristiques</u> :
+                <ul>
+                  <li>Points de vie : 170</li>
+                  <li>Pourcentage de CC : 21</li>
+                  <li>Arme de prédilection : Épée</li>
+                </ul>
+              </li>
+              <li>
+                <u>Caractéristiques avec bonus</u> :
+                <ul>
+                  <li>Points de vie : 270</li>
+                  <li>Pourcentage de CC : 37</li>
+                </ul>
+              </li>
+            </ul>
+            <button class="btnHome" onclick="getID(4);" style="margin-top: 3px">
+              Choisir Jean
+            </button>
           </div>
         </div>
-        <div class="col-md-6 col-sm-6">
+        <div class="col-md-5 col-sm-6">
           <div class="persoHome">
             <h4 class="h4home">Chongyun</h4>
             <img src="images/Chongyun.jpg" class="chongyunHome" />
-            <button class="btnHome" onclick="getID(5);"> Choisir Chongyun</button>
+            <p class="descriptionPerso">
+              <strong><u>Histoire de Chongyun </u></strong>: <br />
+              "Exorciste basé à Liyue, et exerçant ses activités de par le
+              monde. Héritier de l'une des plus célèbres maisons de l'art, il a
+              un talent dévastateur qu'il ne doit pas à l'enseignement de ses
+              maîtres, mais à l'impressionnante quantité d'énergie en permanence
+              au bord de l'implosion qui l'habite."
+            </p>
+            <ul class="carac" id="caracChong">
+              <li>
+                <u>Caractéristiques</u> :
+                <ul>
+                  <li>Points de vie : 166</li>
+                  <li>Pourcentage de CC : 23</li>
+                  <li>Arme de prédilection : Espadon</li>
+                </ul>
+              </li>
+              <li>
+                <u>Caractéristiques avec bonus</u> :
+                <ul>
+                  <li>Points de vie : 271</li>
+                  <li>Pourcentage de CC : 40</li>
+                </ul>
+              </li>
+            </ul>
+            <button class="btnHome" onclick="getID(5);" style="margin-top: 3px">
+              Choisir Chongyun
+            </button>
           </div>
         </div>
-        <div class="col-md-6 col-sm-6">
+        <div class="col-md-5 col-sm-6">
           <div class="persoHome">
             <h4 class="h4home">Xiangling</h4>
             <img src="images/Xiangling.jpg" class="xianglingHome" />
-            <button class="btnHome" onclick="getID(6);">Choisir Xiangling</button>
+            <p class="descriptionPerso">
+              <strong><u>Histoire de Diluc </u></strong>: <br />
+              "Étant l'homme le plus riche de Mondstadt, Diluc se présente
+              toujours comme un jeune homme élégant et charmant, à l'image
+              publique parfaite. Sous ce masque se cache un guerrier à la
+              volonté de fer forgée dans les flammes qui ne recule devant rien
+              pour protéger Mondstadt. Ne comptez pas sur lui pour ménager ses
+              adversaires, il sera sans pitié jusqu'à la fin."
+            </p>
+            <ul class="carac">
+              <li>
+                <u>Caractéristiques</u> :
+                <ul>
+                  <li>Points de vie : 200</li>
+                  <li>Pourcentage de CC : 10</li>
+                  <li>Arme de prédilection : Espadon</li>
+                </ul>
+              </li>
+              <li>
+                <u>Caractéristiques avec bonus</u> :
+                <ul>
+                  <li>Points de vie : 285</li>
+                  <li>Pourcentage de CC : 16</li>
+                </ul>
+              </li>
+            </ul>
+            <button class="btnHome" onclick="getID(6);" style="margin-top: 3px">
+              Choisir Xiangling
+            </button>
           </div>
         </div>
         <div class="col-md-6 col-sm-6">
           <div class="persoHome">
             <h4 class="h4home">Albedo</h4>
             <img src="images/Albedo.jpg" class="albedoHome" />
-            <button class="btnHome" onclick="getID(7);">Choisir Albedo</button>
+            <p class="descriptionPerso">
+              <strong><u>Histoire de Diluc </u></strong>: <br />
+              "Étant l'homme le plus riche de Mondstadt, Diluc se présente
+              toujours comme un jeune homme élégant et charmant, à l'image
+              publique parfaite. Sous ce masque se cache un guerrier à la
+              volonté de fer forgée dans les flammes qui ne recule devant rien
+              pour protéger Mondstadt. Ne comptez pas sur lui pour ménager ses
+              adversaires, il sera sans pitié jusqu'à la fin."
+            </p>
+            <ul class="carac">
+              <li>
+                <u>Caractéristiques</u> :
+                <ul>
+                  <li>Points de vie : 200</li>
+                  <li>Pourcentage de CC : 10</li>
+                  <li>Arme de prédilection : Espadon</li>
+                </ul>
+              </li>
+              <li>
+                <u>Caractéristiques avec bonus</u> :
+                <ul>
+                  <li>Points de vie : 285</li>
+                  <li>Pourcentage de CC : 16</li>
+                </ul>
+              </li>
+            </ul>
+            <button class="btnHome" onclick="getID(7);" style="margin-top: 3px">
+              Choisir Albedo
+            </button>
           </div>
         </div>
       </div>
