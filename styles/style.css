@@ -1,6 +1,13 @@
 /***** ******/
 /*   Home   */
 /***** ******/
+body {
+  width: 100%;
+  background-image: url("https://www.nawpic.com/media/2020/genshin-impact-nawpic-10-scaled.jpg") !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 .dilucHome,
 .razorHome,
 .childeHome,
@@ -19,6 +26,7 @@
   margin-top: 15px;
   border: 2px solid black;
   padding: 5.5px;
+  background-color: rgb(233, 224, 212, 0.85);
 }
 .col-md-3.col-sm-6 {
   margin-top: 40px;
@@ -40,9 +48,61 @@
   margin-left: 45px;
   margin-right: 45px;
   padding-left: 15px;
+  background-color: rgb(223, 206, 183);
 }
 #caracChong {
-  margin-top: 68px;
+  margin-top: 69px;
+}
+.btn_play {
+  width: 75%;
+  margin-top: 8px;
+  margin-left: 190px;
+}
+.divWeapon {
+  margin-left: 40px;
+  margin-right: -45px;
+  margin-bottom: -16px;
+  border-top: 1.5px solid black;
+  border-right: 1.5px solid black;
+  border-left: 1.5px solid black;
+  background-color: rgba(248, 238, 222, 0.8);
+}
+.armeHome {
+  float: left;
+  width: 15%;
+  margin-left: 10px;
+  margin-top: 15px;
+  margin-right: 35px;
+}
+li {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+.ulWeapon {
+  margin-top: 15px;
+  list-style-type: square;
+}
+.liWeapon1 {
+  list-style-type: none;
+  text-align: center;
+  margin-top: 24px;
+}
+#firstWeapon {
+  margin-top: 15px;
+}
+.liWeapon2 {
+  margin-left: 86px;
+}
+#divWeapon2 {
+  margin-top: 15px;
+}
+#divWeapon7,
+#divWeapon8 {
+  border-bottom: 1px solid black;
+  margin-top: 15px;
+}
+#divWeapon5,
+#divWeapon6 {
+  border-bottom: 1px solid black;
 }
 /***** ******/
 /*  Board   */
@@ -174,6 +234,7 @@ table {
   margin-top: 15px;
   margin-left: 12px;
   padding-bottom: 30px;
+  background-color: rgb(233, 224, 212, 0.85);
 }
 #interfaceP2 {
   margin-right: 12px;
@@ -221,6 +282,7 @@ h4 {
   border: solid 2px black;
   margin-top: 10px;
   height: 175px;
+  opacity: 80%;
 }
 #zoneDeTexte {
   text-align: left;

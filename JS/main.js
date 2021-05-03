@@ -1,5 +1,45 @@
 let myBoard = new board(10, 10, 10);
-myBoard.drawBoard();
+
+
+// var paramsString = "q=URLUtils.searchParams&player1=unwhisky&player2=justeundoigt";
+// var searchParams = new URLSearchParams(paramsString)
+// for (let p of searchParams) {
+//   console.log(p)
+// }
+let apparaitjoueur = false;
+function dispFile(contents) {
+  document.getElementById('contents').innerHTML = contents
+}
+function clickElem(elem) {
+  var eventMouse = document.createEvent("MouseEvents")
+  eventMouse.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+  elem.dispatchEvent(eventMouse)
+}
+function openFile(func) {
+  apparaitjoueur = true
+  readFile = function (e) {
+    var file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var contents = e.target.result;
+      fileInput.func(contents)
+      document.body.removeChild(fileInput)
+    }
+    reader.readAsText(file)
+  }
+  fileInput = document.createElement("input")
+  fileInput.type = 'file'
+  fileInput.style.display = 'none'
+  fileInput.onchange = readFile
+  fileInput.func = func
+  document.body.appendChild(fileInput)
+  clickElem(fileInput) //faire une promise ? et dessiner le tableau après avoir résolu
+  myBoard.drawBoard();
+}
+
 
 let Diluc = new Character("Diluc", 200, "images/perso1.png", 10, "espadon", 6, 85);
 let Childe = new Character("Childe", 180, "images/perso2.png", 16, "lance", 12, 95);
@@ -10,11 +50,6 @@ let Xiangling = new Character("Xiangling", 176, "images/perso6.png", 18, "lance"
 let Albedo = new Character("Albedo", 160, "images/perso7.png", 25, "épée", 20, 110);
 
 let playerOnBoard = [];
-let hasClicked = false;
-
-function switchHasClicked() {
-  hasClicked = true;
-}
 
 function getID(value) {
   switch (value) {
@@ -48,18 +83,22 @@ function getID(value) {
       break;
   }
   if (playerOnBoard.length === 2) {
-    let $btn_play = $('<button id="btn_play" onClick="switchHasClicked"><a href="index.html"> Lancer la partie </button>')
+    let $btn_play = $('<button class="btn_play" onClick="openFile(dispFile)"> Lancer la partie </button>')
     $('.placeBtnPlay').append($btn_play)
   }
 }
-
-function gogogo() {
-  if (hasClicked) {
-
+function dessinejoueur() {
+  if (apparaitjoueur) {
     playerOnBoard[0].spotPlayer(playerOnBoard[1]);
-  }
+    randomWeapon(3)
+    let element = document.getElementById('texte');
+    element.innerHTML += "- Invocation de " + playerOnBoard[0].classAttribute + ". Armes favorites : " + playerOnBoard[0].typeOfWeapon + "\n";
+    element.innerHTML += "- Invocation de " + playerOnBoard[1].classAttribute + ". Armes favorites : " + playerOnBoard[1].typeOfWeapon + "\n";
+    element.innerHTML += "- Les armes : " + weaponOnBoard[0].name + " (" + weaponOnBoard[0].type + ")" + " / " + weaponOnBoard[1].name + " (" + weaponOnBoard[1].type + ")" + " / " + weaponOnBoard[2].name + " (" + weaponOnBoard[2].type + ")" + " apparaissent sur le terrain." + "\n";
+
+  } console.log(playerOnBoard)
 }
-gogogo()
+
 
 let weapon = new Weapon("Épée de vagabond", "ÉpéeDeNoob1", 10, "images/arme1.png", null, "épée de base", "Aucun");
 let weapon0 = new Weapon("Épée de vagabond", "ÉpéeDeNoob", 10, "images/arme1.png", null, "épée de base", "Aucun");
@@ -95,11 +134,7 @@ function randomWeapon(nbOfWeapon) {
   });
 }
 
-randomWeapon(3);
-let element = document.getElementById('texte');
-// element.innerHTML += "- Invocation de " + playerOnBoard[0].classAttribute + ". Armes favorites : " + playerOnBoard[0].typeOfWeapon + "\n";
-// element.innerHTML += "- Invocation de " + playerOnBoard[1].classAttribute + ". Armes favorites : " + playerOnBoard[1].typeOfWeapon + "\n";
-// element.innerHTML += "- Les armes : " + weaponOnBoard[0].name + " (" + weaponOnBoard[0].type + ")" + " / " + weaponOnBoard[1].name + " (" + weaponOnBoard[1].type + ")" + " / " + weaponOnBoard[2].name + " (" + weaponOnBoard[2].type + ")" + " apparaissent sur le terrain." + "\n";
+// randomWeapon(3);
 
 async function letsGo() {
   weaponOnBoard.push(weapon)

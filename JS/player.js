@@ -57,11 +57,13 @@ class Character {
         if (this.effects.sleeping !== null) {
             if (this.effects.sleeping.turns !== 0) {
                 this.effects.sleeping.turns -= 1
+                this.sendFire = false;
                 document.getElementById("texte").innerHTML += "- Tour restant de l'effet sommeil : " + this.effects.sleeping.turns + ". \n"
                 document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
                 return 0
             } else {
-                this.effects.sleeping = null
+                this.effects.sleeping = null;
+                this.sendFire = true;
             }
         }
 
