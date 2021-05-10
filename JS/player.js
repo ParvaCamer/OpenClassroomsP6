@@ -9,6 +9,7 @@ class Character {
         this.positionToClick = [];
         this.order = 0;
         this.weapon = null;
+        this.canAddHp = false;
         this.isCritical = false;
         this.critical = critical;
         this.canOneShot = false;
@@ -27,11 +28,30 @@ class Character {
         this.bonusHp = bonusHp;
         this.hasAlreadyBonus = false; // pour le bonus Hp et CC
     }
-
     getDamages() {
+        // Ici on calcule les dégâts de l'arme lorsqu'ils sont optimisés par le personnage
+        // qui possède bien la comp passive pour booster ses dégâts
+        let weaponDamages = this.weapon.damage
+        if (this.hasBestWeaponToWear === true) {
+            weaponDamages = weaponDamages + Math.round(weaponDamages * this.percentBoost / 100)
+            $('#weaponDamageJ' + this.order).text(weaponDamages)
+            document.getElementById("texte").innerHTML += "- " + this.weapon.name + " éveille les dommages de son porteur : gain de " + (weaponDamages - this.weapon.damage) + " dommages pour ce tour. \n"
+            document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
+        }
+
         // Calcul des dégâts
         let multiplicator = 1
         let chanceOfCritical = Math.floor(Math.random() * 100);
+        if (this.isCritical === false) {
+            if (chanceOfCritical <= this.critical) {
+                multiplicator = 1.5
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " frappe avec un Coup critique ! \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
+            } else {
+                document.getElementById("texte").innerHTML += "- Au tour de " + this.classAttribute + " d'attaquer. C'est un coup normal. \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
+            }
+        }
 
         if (this.isCritical === true) {
             chanceOfCritical = 100;
@@ -41,14 +61,10 @@ class Character {
                 document.getElementById("texte").innerHTML += "- " + this.classAttribute + " envoie un Coup critique grâce au Faucon !! \n"
                 document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
             }
-        }
-        if (chanceOfCritical <= this.critical) {
-            multiplicator = 1.5
-            document.getElementById("texte").innerHTML += "- " + this.classAttribute + " frappe avec un Coup critique ! \n"
-            document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
-        } else {
-            document.getElementById("texte").innerHTML += "- Au tour de " + this.classAttribute + " d'attaquer. C'est un coup normal. \n"
-            document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
+            else {
+                document.getElementById("texte").innerHTML += "- Au tour de " + this.classAttribute + " d'attaquer. C'est un coup normal. \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
+            }
         }
 
         console.log("Pour le joueur", this.classAttribute, "les effets :", this.effects)
@@ -74,6 +90,7 @@ class Character {
                 this.PV -= 5
                 $('#currentHpJ' + this.order).text(this.PV)
                 document.getElementById("texte").innerHTML += "- Tour restant de l'effet de brûlure : " + this.effects.fire.turns + ". \n"
+                document.getElementById("texte").innerHTML += "- Dégâts de la brûlure : 5 Hp. \n"
                 document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
             } else {
                 this.effects.fire = null
@@ -85,8 +102,8 @@ class Character {
             let chanceOfGain = Math.floor(Math.random() * 5)
             if (chanceOfGain === 0) {
                 multiplicator = 1.8
-                this.PV -= 20
-                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " obtient un gain de puissance mais perd des Hp. \n"
+                this.PV -= 40
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " obtient un gain de puissance de " + Math.round(weaponDamages * multiplicator - weaponDamages) + " dommages mais perd 40 Hp. \n"
                 document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
                 $('#currentHpJ' + this.order).text(this.PV)
             } else {
@@ -99,7 +116,6 @@ class Character {
         if (this.canOneShot === true) {
             let chanceOfOneShot = Math.floor(Math.random() * 5);
             if (chanceOfOneShot === 0) {
-                document.getElementById("texte").innerHTML += "- C'est un one-shot ! \n"
                 document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
                 return -1
             } else if (chanceOfOneShot === 3 || chanceOfOneShot === 4) {
@@ -117,16 +133,22 @@ class Character {
                 this.defend = true
                 document.getElementById("texte").innerHTML += "- " + this.classAttribute + " attaque et se met en mode défense. \n"
                 document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
+            } else {
+                document.getElementById("texte").innerHTML += "- Le sort n'a pas fonctionné. \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
             }
         }
 
-        // Ici on calcule les dégâts de l'arme lorsqu'ils sont optimisés par le personnage
-        // qui possède bien la comp passive pour booster ses dégâts
-        let weaponDamages = this.weapon.damage
-        if (this.hasBestWeaponToWear === true) {
-            weaponDamages = weaponDamages + Math.round(weaponDamages * this.percentBoost / 100)
-            $('#weaponDamageJ' + this.order).text(weaponDamages)
-            document.getElementById("texte").innerHTML += "- " + this.weapon.name + " éveille les dommages de son porteur. \n"
+        if (this.canAddHp === true) {
+            this.PV += 15;
+            if (this.PV > this.totalPV) {
+                document.getElementById('texte').innerHTML += "- Les Points de vie ont atteint le seuil maximum. \n"
+                console.log("- ATTENTION : Overheal " + this.PV + " > " + this.totalPV)
+                this.PV = this.totalPV;
+            } else {
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " se soigne de 15 HP. \n";
+            }
+            $('#currentHpJ' + this.order).text(this.PV)
             document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
         }
 
@@ -139,14 +161,7 @@ class Character {
     /*****************/
 
     addHp(value) {
-        document.getElementById("texte").innerHTML += "- " + this.classAttribute + " gagne " + value + " HP. \n";
-        this.PV += value;
-        if (this.PV > this.totalPV) {
-            document.getElementById("texte").innerHTML += "- ATTENTION : Overheal " + this.PV + " > " + this.totalPV + ".\n";
-            this.PV = this.totalPV;
-        }
-        $('#currentHpJ' + this.order).text(this.PV)
-        document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
+        this.canAddHp = true;
     }
 
     criticalHit(value) {
@@ -196,7 +211,7 @@ class Character {
 
         // On vérifie qu'on se fait pas "one-shot"
         if (value === -1) {
-            document.getElementById("texte").innerHTML += "- " + this.classAttribute + " s'est fait one-shot. \n"
+            document.getElementById("texte").innerHTML += "- " + this.classAttribute + " s'est fait one-shot ! \n"
             document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
             this.PV = 0;
             $('#currentHpJ' + this.order).text(this.PV)
@@ -261,6 +276,8 @@ class Character {
 
     setDefenseMode() {
         this.defend = true;
+        document.getElementById("texte").innerHTML += "- " + this.classAttribute + " se met en mode défense. Les dégâts sont divisés ! \n"
+        document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
     }
 
     isAlive() {
@@ -272,10 +289,14 @@ class Character {
         for (let p = 0; p < 1; p++) {
             let random1 = Math.floor(Math.random() * 100);
             let random2 = Math.floor(Math.random() * 100);
-            let littleBox = $("#" + random1);
             while (random1 === random2 || random1 === random2 - 1 || random1 === random2 + 1 || random1 === random2 - 10 || random1 === random2 + 10) {
-                random2 = Math.floor(Math.random() * 10);
+                random1 = Math.floor(Math.random() * 100);
             }
+            while (random1 === 0 || random1 === 9 || random1 === 90 || random1 === 99 || random2 === 0 || random2 === 9 || random2 === 90 || random2 === 99) {
+                random1 = Math.floor(Math.random() * 100);
+                random2 = Math.floor(Math.random() * 100);
+            }
+            let littleBox = $("#" + random1);
             let littleBox2 = $('#' + random2);
 
             if (littleBox.hasClass("casePlayer") || littleBox.hasClass("caseObstacle") || littleBox2.hasClass("casePlayer") || littleBox2.hasClass("caseObstacle")) {
@@ -288,6 +309,7 @@ class Character {
                 this.position = random1;
                 otherPlayer.position = random2;
             }
+
         }
     }
 
@@ -424,8 +446,10 @@ class Character {
             } else {
                 this.hasBestWeaponToWear = false
             }
+            document.getElementById("texte").innerHTML += "- " + this.classAttribute + " a ramassé une arme : " + theWeapon.name + ". \n"
+            document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
 
-            // On ajoute le bonus Hp si c'est la bonne arme
+            // On ajoute le bonus si c'est la bonne arme
             if (this.hasBestWeaponToWear === true && this.hasAlreadyBonus === false) {
                 this.PV += this.bonusHp
                 this.totalPV = this.PV
@@ -435,9 +459,9 @@ class Character {
                 $('#criticalStrikeJ' + this.order).text(this.critical)
                 $('#awakeJ' + this.order).text(this.weapon.description)
                 this.hasAlreadyBonus = true
-                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " a ramassé une arme favorite. " + this.classAttribute + " obtient un bonus de " + this.bonusHp + " Hp et de " + this.percentBoost + " Coup Critique ! \n";
+                document.getElementById("texte").innerHTML += "- C'est aussi son arme favorite ! " + this.classAttribute + " obtient un bonus de " + this.bonusHp + " Hp et de " + this.percentBoost + " Coup Critique ! \n";
                 document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
-            } else if (this.hasBestWeaponToWear === false && this.hasAlreadyBonus === true) {
+            } else if (this.hasBestWeaponToWear === false && this.hasAlreadyBonus === true) { // On retire le bonus si l'arme n'est plus favorite
                 this.PV -= this.bonusHp
                 this.totalPV = this.PV
                 $('#currentHpJ' + this.order).text(this.PV)
@@ -446,7 +470,7 @@ class Character {
                 $('#criticalStrikeJ' + this.order).text(this.critical)
                 $('#awakeJ' + this.order).text(this.weapon.description)
                 this.hasAlreadyBonus = false
-                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " a perdu son arme, les bonus sont perdus. \n"
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " a perdu son arme favorite. Les bonus sont perdus... \n"
                 document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
             }
             this.switchWeapon(weaponCase, theWeapon);

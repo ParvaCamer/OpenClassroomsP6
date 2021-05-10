@@ -21,7 +21,7 @@ body {
   margin-top: 10px;
 }
 .persoHome {
-  height: 680px;
+  height: 98%;
   text-align: center;
   margin-top: 15px;
   border: 2px solid black;
@@ -232,12 +232,12 @@ table {
 #interfaceP2 {
   border: solid 2px;
   margin-top: 15px;
-  margin-left: 12px;
+  margin-left: -6px;
   padding-bottom: 30px;
   background-color: rgb(233, 224, 212, 0.85);
 }
 #interfaceP2 {
-  margin-right: 12px;
+  margin-right: -6px;
 }
 #HpJ1,
 #HpJ2 {
@@ -284,7 +284,7 @@ h4 {
   height: 175px;
   opacity: 80%;
 }
-#zoneDeTexte {
+#texte {
   text-align: left;
 }
 #currentHpJ1,
@@ -292,4 +292,91 @@ h4 {
 #currentHpJ2,
 #totalHpJ2 {
   color: rgb(5, 5, 131);
+}
+#placeBtnReplay {
+  margin-top: 10px;
+  text-align: center;
+}
+
+/******  ******/
+/* Responsive */
+/******  ******/
+
+@media screen and (max-width: 1199px) {
+  #interfaceP1,
+  #interfaceP2 {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  .container {
+    padding-right: 0px !important;
+    margin-right: 15px !important;
+  }
+  table {
+    float: none;
+    margin-left: 200px;
+  }
+  .button1 {
+    margin-left: 120px;
+  }
+  .button2 {
+    margin-right: 120px;
+  }
+  #texte {
+    margin-left: 200px;
+  }
+  #imgPlayerJ1,
+  #imgPlayerJ2 {
+    margin-left: 100px;
+  }
+  .descriptionPerso {
+    display: none;
+  }
+  .dilucHome,
+  .razorHome,
+  .childeHome,
+  .jeanHome,
+  .chongyunHome,
+  .xianglingHome,
+  .albedoHome {
+    float: unset;
+    margin-bottom: 10px;
+  }
+  #caracChong {
+    margin-top: 0px;
+  }
+  .carac {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .liWeapon2 {
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 990px) {
+  .col-lg-6 {
+    max-width: 100% !important;
+    flex: 0 0 65% !important;
+  }
+  #texte {
+    margin-left: 0px;
+    width: 63.5%;
+  }
+  table {
+    margin-left: 150px;
+  }
+  #imgPlayerJ1,
+  #imgPlayerJ2 {
+    margin-left: 100px;
+  }
+  #divWeapon3 {
+    height: 100%;
+  }
+  #divWeapon5 {
+    height: 110%;
+  }
+  #divWeapon8 {
+    height: 100%;
+  }
 }

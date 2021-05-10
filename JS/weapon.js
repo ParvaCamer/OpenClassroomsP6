@@ -9,10 +9,10 @@ class Weapon {
         this.effect = effect;
         this.effects = {
             addHp: {
-                isBegginingTurn: true,
-                allFightingEffect: false,
+                isBegginingTurn: false,
+                allFightingEffect: true,
                 stat: "PV",
-                changement: 20
+                changement: 15
             },
             criticalHit: {
                 isBegginingTurn: false,

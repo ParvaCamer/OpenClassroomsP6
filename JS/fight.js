@@ -33,8 +33,14 @@ class fight {
                 that.launchFight(enemy, playerWhoPlay)
             })
         } else {
-            alert("Le combat est fini !")
-
+            document.getElementById("texte").innerHTML += "- Le combat est fini ! " + playerWhoPlay.classAttribute + " gagne la partie. \n"
+            document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
+            let $btn_replay = $('<button id ="btn_replay" onclick="switchPage()"> Rejouer une partie ? </button>')
+            $('#placeBtnReplay').append($btn_replay)
         }
     }
+
+}
+function switchPage() {
+    window.location = "index.html"
 }
