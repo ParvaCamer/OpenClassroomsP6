@@ -352,6 +352,9 @@ h4 {
   .liWeapon2 {
     margin-left: 0px;
   }
+  .bodyIndex {
+    margin-left: -120px;
+  }
 }
 
 @media (max-width: 990px) {
@@ -378,5 +381,8 @@ h4 {
   }
   #divWeapon8 {
     height: 100%;
+  }
+  .bodyIndex {
+    margin-left: -130px;
   }
 }
