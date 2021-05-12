@@ -399,7 +399,7 @@ h4 {
     margin-right: -5px;
   }
   #placeBtnReplay {
-    text-align: none;
+    text-align: unset;
     margin-left: 150px;
   }
 }
