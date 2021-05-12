@@ -104,6 +104,10 @@ li {
 #divWeapon6 {
   border-bottom: 1px solid black;
 }
+#homeAlbedo {
+  margin-left: -40px;
+  margin-right: 40px;
+}
 /***** ******/
 /*  Board   */
 /***** ******/
