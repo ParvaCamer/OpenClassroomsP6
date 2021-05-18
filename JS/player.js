@@ -73,13 +73,11 @@ class Character {
         if (this.effects.sleeping !== null) {
             if (this.effects.sleeping.turns !== 0) {
                 this.effects.sleeping.turns -= 1
-                this.sendFire = false;
                 document.getElementById("texte").innerHTML += "- Tour restant de l'effet sommeil : " + this.effects.sleeping.turns + ". \n"
                 document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
                 return 0
             } else {
                 this.effects.sleeping = null;
-                this.sendFire = true;
             }
         }
 
@@ -278,6 +276,42 @@ class Character {
         this.defend = true;
         document.getElementById("texte").innerHTML += "- " + this.classAttribute + " se met en mode défense. Les dégâts sont divisés ! \n"
         document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
+
+        if (this.canAddHp === true) {
+            this.PV += 15;
+            if (this.PV > this.totalPV) {
+                document.getElementById('texte').innerHTML += "- Les Points de vie ont atteint le seuil maximum. \n"
+                console.log("- ATTENTION : Overheal " + this.PV + " > " + this.totalPV)
+                this.PV = this.totalPV;
+            } else {
+                document.getElementById("texte").innerHTML += "- " + this.classAttribute + " se soigne de 15 HP. \n";
+            }
+            $('#currentHpJ' + this.order).text(this.PV)
+            document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
+        }
+
+        if (this.effects.sleeping !== null) {
+            if (this.effects.sleeping.turns !== 0) {
+                this.effects.sleeping.turns -= 1;
+                document.getElementById("texte").innerHTML += "- Tour restant de l'effet sommeil : " + this.effects.sleeping.turns + ". \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
+            } else {
+                this.effects.sleeping = null;
+            }
+        }
+
+        if (this.effects.fire !== null) {
+            if (this.effects.fire.turns !== 0) {
+                this.effects.fire.turns -= 1
+                this.PV -= 5
+                $('#currentHpJ' + this.order).text(this.PV)
+                document.getElementById("texte").innerHTML += "- Tour restant de l'effet de brûlure : " + this.effects.fire.turns + ". \n"
+                document.getElementById("texte").innerHTML += "- Dégâts de la brûlure : 5 Hp. \n"
+                document.getElementById("texte").scrollTop = document.getElementById("texte").scrollHeight;
+            } else {
+                this.effects.fire = null
+            }
+        }
     }
 
     isAlive() {
