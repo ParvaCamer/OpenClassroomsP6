@@ -9,49 +9,36 @@ class Weapon {
         this.effect = effect;
         this.effects = {
             addHp: {
-                isBegginingTurn: false,
                 allFightingEffect: true,
                 stat: "PV",
                 changement: 15
             },
             criticalHit: {
-                isBegginingTurn: false,
                 allFightingEffect: true,
                 stat: "damage",
                 changement: 14
             },
-            canBeKilled: {
-                isBegginingTurn: true,
-                allFightingEffect: false,
-                stat: "PV",
-                changement: 0
-            },
             sleeping: {
-                isBegginingTurn: false,
                 allFightingEffect: true,
                 stat: "damage",
                 changement: 0
             },
             fire: {
-                isBegginingTurn: false,
                 allFightingEffect: true,
                 stat: "damage",
                 changement: 5
             },
             oneShot: {
-                isBegginingTurn: false,
                 allFightingEffect: true,
                 stat: null,
                 changement: null
             },
             moreAtq: {
-                isBegginingTurn: false,
                 allFightingEffect: true,
                 stat: "PV",
                 changement: 20
             },
             defendAndAttack: {
-                isBegginingTurn: false,
                 allFightingEffect: true,
                 stat: "PV",
                 changement: null
@@ -68,14 +55,6 @@ class Weapon {
     hasAllFightingEffect() {
         if (this.effect !== null) {
             return this.effects[this.effect].allFightingEffect
-        } else {
-            return false
-        }
-    }
-
-    hasBegginingEffect() {
-        if (this.effect !== null) {
-            return this.effects[this.effect].isBegginingTurn
         } else {
             return false
         }

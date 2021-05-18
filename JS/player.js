@@ -214,11 +214,6 @@ class Character {
             this.PV = 0;
             $('#currentHpJ' + this.order).text(this.PV)
         } else {
-            // On lance les effets d'avant combat ici
-            if (this.weapon.hasBegginingEffect()) {
-                console.log("Effet lancé au début du tour")
-                this.weapon.doEffect()
-            }
             if (this.defend === true) { //si il est en position défense
                 value = value / 2;
                 this.PV -= Math.round(value)
