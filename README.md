@@ -1,6 +1,6 @@
 # OpenClassrooms Projet 6
 
-Projet effectué en HTML / CSS / JS
+Projet écrit en HTML / CSS / JS
 
 ### De quoi ça parle ?
 Un projet effectué avec OpenClassrooms. Je devais créer un jeu de plateau tour par tour en JavaScript
