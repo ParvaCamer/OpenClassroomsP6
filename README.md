@@ -6,7 +6,7 @@ Projet écrit en HTML / CSS / JS
 Un projet effectué avec OpenClassrooms. Je devais créer un jeu de plateau tour par tour en JavaScript
 
 ### Lien en ligne du projet :
-- https://parvacamer.github.io/OcrProjet6/
+- https://parvacamer.github.io/OpenClassroomsP6/
 
 ## English version
 
@@ -16,4 +16,4 @@ This project is working with HTML / CSS / JS
 A project requested by my school. I had to create a turn-based board game with JavaScript
 
 ### Project's link :
-- https://parvacamer.github.io/OcrProjet6/
+- https://parvacamer.github.io/OpenClassroomsP6/
