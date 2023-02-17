@@ -13,7 +13,7 @@ Un projet effectué avec OpenClassrooms. Je devais créer un jeu de plateau tour
 This project is working with HTML / CSS / JS
 
 ### What is it about ?
-A project requested by my school. I had to create a turn-based board game with JavaScript
+A project requested by my bootcamp OpenClassrooms. I had to create a turn-based board game with JavaScript
 
 ### Project's link :
 - https://parvacamer.github.io/OpenClassroomsP6/
